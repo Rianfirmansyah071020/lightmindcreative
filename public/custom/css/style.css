@@ -1,0 +1,114 @@
+.card-custom-upload {
+    background-color: rgb(228, 228, 228);
+    border: 3px dashed black;
+    padding: 50px;
+    text-align: center;
+}
+
+.alert-upload {
+    color: white;
+    background-color: rgb(38, 177, 31);
+    padding: 20px;
+    border-radius: 10px;
+    font-size: small;
+}
+
+.table-custom {
+    font-size: small;
+}
+
+.table-custom {
+    font-size: 14px;
+}
+
+.text-logo {
+    font-size: 16px;
+}
+
+.card-custom {
+    background-color: rgb(228, 244, 232);
+}
+
+form {
+    font-size: 14px;
+}
+
+input::placeholder {
+    font-size: small;
+}
+
+textarea::placeholder {
+    font-size: small;
+}
+
+.navbar-custom {
+    background: linear-gradient(to right, #60c7d1, #1b0e6d);
+    width: 100%;
+    left: auto;
+    right: auto;
+    top: 0;
+    position: sticky;
+    border-bottom: 1px solid green;
+}
+
+.text-navbar {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.body {
+    height: 2000px;
+}
+
+.text-link {
+    color: white;
+}
+
+.container-upload {
+    position: relative;
+    width: 150px; /* Sesuaikan lebar container sesuai kebutuhan */
+    height: 150px; /* Sesuaikan tinggi container sesuai kebutuhan */
+    overflow: hidden;
+}
+
+#file {
+    display: none;
+}
+
+#file-label {
+    cursor: pointer;
+    text-align: center;
+}
+
+#file-icon {
+    width: 250px;
+    object-fit: cover;
+}
+
+.table-diagnosis {
+    font-size: 10px;
+}
+
+.body-login {
+    background-image: url("/custom/bg1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-login {
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+}
+
+.img-data-diagnosis {
+    width: 300px;
+}
+
+.text-tindakan {
+    font-size: 16px;
+}
+
+.btn-custom {
+    font-size: 10px;
+}
