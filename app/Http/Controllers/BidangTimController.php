@@ -121,7 +121,16 @@ class BidangTimController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('Edit Data Bidang');
+        }
+
+        $data['data'] = BidangTim::where('id_bidang_tim', $id)->first();
+
+        return view('pages.dashboard.bidang.edit', $data);
     }
 
     /**
@@ -129,7 +138,50 @@ class BidangTimController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        try {
+            // Validasi input menggunakan metode validate
+            $validasi = $request->validate([
+                'nama_bidang_tim' => 'required',
+                'deskripsi_bidang_tim' => 'required',
+            ], [
+                'nama_bidang_tim.required' => 'Nama bidang harus diisi',
+                'deskripsi_bidang_tim.required' => 'Deskripsi bidang harus diisi',
+            ]);
+
+            // Logika untuk menyimpan data jika validasi berhasil
+            if (BidangTim::UpdateBidang($request, $id)) {
+                Session::flash('alert', [
+                    'icon' => 'success',
+                    'title' => 'Berhasil!',
+                    'text' => 'data bidang tim berhasil update',
+                ]);
+                return redirect()->route('bidang');
+            } else {
+                Session::flash('alert', [
+                    'icon' => 'error',
+                    'title' => 'Gagal!',
+                    'text' => 'data bidang tim gagal update',
+                ]);
+                return redirect()->back();
+            }
+        } catch (ValidationException $e) {
+            // Mengambil pesan error dari validasi
+            $errors = $e->validator->errors();
+
+            // Menggunakan pesan error untuk menetapkan flash session
+            foreach ($errors->keys() as $key) {
+                $errorMessage = $errors->first($key);
+
+                Session::flash('alert', [
+                    'icon' => 'error',
+                    'title' => 'Oops!',
+                    'text' => $errorMessage,
+                ]);
+            }
+
+            return redirect()->route('bidang');
+        }
     }
 
     /**

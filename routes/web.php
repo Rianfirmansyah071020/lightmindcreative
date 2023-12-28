@@ -28,3 +28,5 @@ Route::get('/bidang', [BidangTimController::class, 'index'])->name('bidang');
 Route::get('/bidang/create', [BidangTimController::class, 'create'])->name('bidang.create');
 Route::post('/bidang', [BidangTimController::class, 'store'])->name('bidang');
 Route::get('/bidang/delete/{id}', [BidangTimController::class, 'destroy'])->name('bidang.delete');
+Route::get('/bidang/edit/{id}', [BidangTimController::class, 'edit'])->name('bidang.edit');
+Route::put('/bidang/update/{id}', [BidangTimController::class, 'update'])->name('bidang.update');

@@ -40,7 +40,8 @@
                         <td class="text-center">{{ $data['nama_bidang_tim'] }}</td>
                         <td class="text-center">{{ $data['deskripsi_bidang_tim'] }}</td>
                         <td class="text-center">
-                            <a href="" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{ route('bidang.edit', $data['id_bidang_tim']) }}" class="btn btn-warning"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
                             <a href="{{ route('bidang.delete', $data['id_bidang_tim']) }}"
                                 onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
                                 class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>

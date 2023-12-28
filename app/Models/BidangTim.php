@@ -61,4 +61,17 @@ class BidangTim extends Model
 
         return $delete;
     }
+
+
+    public static function UpdateBidang($data, $id)
+    {
+
+        $update = BidangTim::where('id_bidang_tim', $id)->update([
+            'id_user' => Session::get('id_user'),
+            'nama_bidang_tim' => $data->nama_bidang_tim,
+            'deskripsi_bidang_tim' => $data->deskripsi_bidang_tim,
+        ]);
+
+        return $update;
+    }
 }
