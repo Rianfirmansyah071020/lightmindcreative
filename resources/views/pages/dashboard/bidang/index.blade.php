@@ -20,7 +20,8 @@
                 Tambah</a>
         </div>
     </div>
-    <div class="row card p-3 mt-2">
+    <p>Halaman Kelola Data Bidang Tim</p>
+    <div class="row card p-3 mt-2 table-responsive">
         <h5 class="text-center">Data Bidang</h5>
         <table class="table table-bordered table-hover" id="datatable">
             <thead>

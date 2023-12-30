@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BidangTimController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TimController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,5 @@ Route::post('/bidang', [BidangTimController::class, 'store'])->name('bidang');
 Route::get('/bidang/delete/{id}', [BidangTimController::class, 'destroy'])->name('bidang.delete');
 Route::get('/bidang/edit/{id}', [BidangTimController::class, 'edit'])->name('bidang.edit');
 Route::put('/bidang/update/{id}', [BidangTimController::class, 'update'])->name('bidang.update');
+Route::get('/tim', [TimController::class, 'index'])->name('tim');
+Route::get('/tim/create', [TimController::class, 'create'])->name('tim.create');

@@ -128,6 +128,8 @@ class BidangTimController extends Controller
             Aktifitas::CreateAktifitas('Edit Data Bidang');
         }
 
+
+
         $data['data'] = BidangTim::where('id_bidang_tim', $id)->first();
 
         return view('pages.dashboard.bidang.edit', $data);
