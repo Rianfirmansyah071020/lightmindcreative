@@ -59,7 +59,9 @@ class TimController extends Controller
             Aktifitas::CreateAktifitas('akses tambah tim');
         }
 
-        return view('pages.dashboard.tim.create');
+        $data['bidang'] = DB::table('tb_bidang_tim')->orderBy('nama_bidang_tim', 'asc')->get();
+
+        return view('pages.dashboard.tim.create', $data);
     }
 
     /**

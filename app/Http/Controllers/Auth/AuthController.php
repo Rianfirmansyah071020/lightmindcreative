@@ -12,15 +12,11 @@ class AuthController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->cookie('remember_token')) {
+        if ($dataUser = User::where('remember_token', $request->cookie('remember_token'))->first()) {
 
-
-            $dataUser = User::where('remember_token', $request->cookie('remember_token'))->first();
             Session::put('id_user', $dataUser->id_user);
 
-            if ($dataUser) {
-                return redirect('/dashboard');
-            }
+            return redirect('/dashboard');
         }
 
         return view('auth.login');

@@ -32,7 +32,7 @@
                     <div class="col-lg-8">
                         <input type="text" name="nama_bidang_tim[]" id="nama_bidang_tim"
                             class="form-control @error('nama_bidang_tim') is-invalid @enderror"
-                            value="{{ old('nama_bidang_tim') }}" placeholder="nama bidang">
+                            value="{{ old('nama_bidang_tim') }}" placeholder="nama bidang" required>
                         @error('nama_bidang_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-lg-10">
                         <textarea name="deskripsi_bidang_tim[]" id="deskripsi_bidang_tim" cols="30" rows="5"
-                            class="form-control @error('deskripsi_bidang_tim') is-invalid @enderror" placeholder="deskripsi bidang">{{ old('deskripsi_bidang_tim') }}</textarea>
+                            class="form-control @error('deskripsi_bidang_tim') is-invalid @enderror" placeholder="deskripsi bidang" required>{{ old('deskripsi_bidang_tim') }}</textarea>
                         @error('deskripsi_bidang_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror

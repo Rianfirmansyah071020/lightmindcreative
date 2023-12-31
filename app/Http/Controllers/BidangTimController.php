@@ -191,6 +191,12 @@ class BidangTimController extends Controller
      */
     public function destroy(string $id)
     {
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('Hapus Data Bidang');
+        }
+
         if (BidangTim::DeleteBidang($id)) {
             Session::flash('alert', [
                 'icon' => 'success',
