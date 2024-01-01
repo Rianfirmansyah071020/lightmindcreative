@@ -9,7 +9,9 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 {{-- <link rel="shortcut icon" href="{{ asset('assets_dashboard/images/favicon.png') }}" /> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+<link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/select2/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 

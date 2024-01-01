@@ -6,8 +6,13 @@
 <script src="{{ asset('assets_dashboard/js/todolist.js') }}"></script>
 <script src="{{ asset('assets_dashboard/vendors/progressbar.js/progressbar.min.js') }}"></script>
 <script src="{{ asset('assets_dashboard/vendors/chart.js/Chart.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+<script src="{{ asset('assets_dashboard/vendors/select2/select2.min.js') }}"></script>
+<script src="{{ asset('assets_dashboard/js/select2.js') }}"></script>
 {{-- <script src="{{ asset('assets_dashboard/js/dashboard.js') }}"></script> --}}
+<script src="{{ asset('assets_dashboard/js/file-upload.js') }}"></script>
+<script src="{{ asset('assets_dashboard/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('assets_dashboard/js/typeahead.js') }}"></script>
 
 
 <script>

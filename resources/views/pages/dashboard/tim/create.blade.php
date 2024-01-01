@@ -92,8 +92,8 @@
                     </div>
                     <div class="col-lg-10">
                         <select name="id_bidang_tim" id="id_bidang_tim"
-                            class="form-control select2 @error('id_bidang_tim') is-invalid @enderror" required
-                            style="height: 40px;">
+                            class="form-control js-example-basic-single @error('id_bidang_tim') is-invalid @enderror"
+                            required style="height: 40px;">
                             <option value="">Pilih</option>
                             @foreach ($bidang as $data)
                                 <option value="{{ $data->id_bidang_tim }}" @selected(old('id_bidang_tim') == $data->id_bidang_tim)>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="col-lg-4">
                         <input type="file" name="file_gambar_tim" id="file_gambar_tim"
-                            class="form-control @error('file_gambar_tim') is-invalid @enderror"
+                            class="form-control  @error('file_gambar_tim') is-invalid @enderror"
                             value="{{ old('file_gambar_tim') }}" required>
                         @error('file_gambar_tim')
                             <i class="text-danger">{{ $message }}</i>
@@ -181,12 +181,12 @@
         </form>
     </div>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             console.log("ready");
             $('.select2').select2();
         })
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
