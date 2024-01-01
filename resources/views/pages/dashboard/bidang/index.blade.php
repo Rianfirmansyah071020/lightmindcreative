@@ -15,14 +15,13 @@
 
 @section('content')
     <div class="row p-3">
-        <div class="">
+        <div class="d-flex justify-content-end">
             <a href="{{ route('bidang.create') }}" class="btn btn-primary btn-custom"><i class="fa-solid fa-plus"></i>
                 Tambah</a>
         </div>
     </div>
     <p>Halaman Kelola Data Bidang Tim</p>
     <div class="row card p-3 mt-2 table-responsive">
-        <h5 class="text-center">Data Bidang</h5>
         <table class="table table-bordered table-hover" id="datatable">
             <thead>
                 <tr>

@@ -39,3 +39,4 @@ Route::get('/tim/delete/{id}/{id_user}', [TimController::class, 'destroy'])->nam
 Route::get('/tim/edit/{id}/{id_user}', [TimController::class, 'edit'])->name('tim.edit');
 Route::put('/tim/update/{id}/{id_user}', [TimController::class, 'update'])->name('tim.update');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/setting', [ProfileController::class, 'viewSetting'])->name('setting');

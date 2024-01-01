@@ -21,13 +21,13 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center gap-3">
-        <div class="card col-lg-5 p-1">
+    <div class="row gap-2">
+        <div class="col-lg-4 col-12 card p-1">
             <div class="card-body">
                 <img src="{{ asset($timById->file_gambar_tim) }}" alt="{{ $timById->nama_tim }}" style="width: 95%;">
             </div>
         </div>
-        <div class="card col-lg-7 p-3">
+        <div class="col-lg-7 card col-12 p-3">
             <table class="table table-bordered">
                 <tr>
                     <td class="text-start">Nama</td>
@@ -60,7 +60,7 @@
                 </tr>
             </table>
             <div class="mt-5 d-flex justify-content-end ">
-                <a href="" class="btn btn-success">Setting <i class="fa-solid fa-gear"></i></a>
+                <a href="{{ route('setting') }}" class="btn btn-success">Setting <i class="fa-solid fa-gear"></i></a>
             </div>
         </div>
     </div>

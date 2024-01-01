@@ -21,13 +21,13 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center gap-3">
-        <div class="card col-lg-5 p-1">
+    <div class="row gap-2">
+        <div class="col-lg-4 col-12 card p-1">
             <div class="card-body">
                 <img src="{{ asset($timById->file_gambar_tim) }}" alt="{{ $timById->nama_tim }}" style="width: 95%;">
             </div>
         </div>
-        <div class="card col-lg-7 p-3">
+        <div class="col-lg-7 card col-12 p-3">
             <form action="{{ route('tim') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row-container" data-row="1">
@@ -35,10 +35,10 @@
                         <div class="col-lg-2">
                             <label for="nama_tim">Nama</label>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-10">
                             <input type="text" name="nama_tim" id="nama_tim"
-                                class="form-control @error('nama_tim') is-invalid @enderror" value="{{ old('nama_tim') }}"
-                                placeholder="nama " required>
+                                class="form-control @error('nama_tim') is-invalid @enderror"
+                                value="{{ $timById->nama_tim ?? old('nama_tim') }}" placeholder="nama " required>
                             @error('nama_tim')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror
@@ -50,9 +50,9 @@
                         </div>
                         <div class="col-lg-10">
                             <input type="radio" name="jenis_kelamin_tim" id="L" value="L"
-                                @checked(old('jenis_kelamin_tim') == 'L')> laki-Laki <br>
+                                @checked($timById->jenis_kelamin_tim == 'L')> laki-Laki <br>
                             <input type="radio" name="jenis_kelamin_tim" id="P" value="P"
-                                @checked(old('jenis_kelamin_tim') == 'P')> Perempuan
+                                @checked($timById->jenis_kelamin_tim == 'P')> Perempuan
                         </div>
                     </div>
                     <div class="form-group row">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-lg-10">
                             <textarea name="alamat_tim" id="alamat_tim" cols="30" rows="5"
-                                class="form-control @error('alamat_tim') is-invalid @enderror" placeholder="alamat" required>{{ old('alamat_tim') }}</textarea>
+                                class="form-control @error('alamat_tim') is-invalid @enderror" placeholder="alamat" required>{{ $timById->alamat_tim ?? old('alamat_tim') }}</textarea>
                             @error('alamat_tim')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror
@@ -71,10 +71,11 @@
                         <div class="col-lg-2">
                             <label for="nomor_hp_tim">Nomor Hp</label>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-10">
                             <input type="text" name="nomor_hp_tim" id="nomor_hp_tim"
                                 class="form-control @error('nomor_hp_tim') is-invalid @enderror"
-                                value="{{ old('nomor_hp_tim') }}" placeholder="nomor hp " required>
+                                value="{{ $timById->nomor_hp_tim ?? old('nomor_hp_tim') }}" placeholder="nomor hp "
+                                required>
                             @error('nomor_hp_tim')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror
@@ -90,7 +91,7 @@
                                 required style="height: 40px;">
                                 <option value="">Pilih</option>
                                 @foreach ($bidang as $data)
-                                    <option value="{{ $data->id_bidang_tim }}" @selected(old('id_bidang_tim') == $data->id_bidang_tim)>
+                                    <option value="{{ $data->id_bidang_tim }}" @selected($timById->id_bidang_tim == $data->id_bidang_tim)>
                                         {{ $data->nama_bidang_tim }}</option>
                                 @endforeach
                             </select>
@@ -98,9 +99,9 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <label for="file_gambar_tim">Gambar</label>
+                            <label for="file_gambar_tim">Gambar Baru</label>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-10">
                             <input type="file" name="file_gambar_tim" id="file_gambar_tim"
                                 class="form-control  @error('file_gambar_tim') is-invalid @enderror"
                                 value="{{ old('file_gambar_tim') }}" required>
@@ -117,10 +118,10 @@
                         <div class="col-lg-2">
                             <label for="email">Email Akun</label>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-10">
                             <input type="email" name="email" id="email"
-                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                                placeholder="email " required>
+                                class="form-control @error('email') is-invalid @enderror"
+                                value="{{ $akunById->email ?? old('email') }}" placeholder="email " required>
                             @error('email')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror
@@ -128,9 +129,9 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-2">
-                            <label for="password">Password Akun</label>
+                            <label for="password">Password Akun Baru</label>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-10">
                             <input type="text" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror"
                                 value="{{ old('password') }}" placeholder="password " required>
@@ -144,6 +145,28 @@
                     <button type="submit" class="btn btn-success m-2">Simpan</button>
                 </div>
             </form>
+
+            <script>
+                $(document).ready(function() {
+                    // Add change event listener to the file input
+                    $('#file_gambar_tim').change(function() {
+                        readURL(this);
+                    });
+
+                    // Function to display the preview image
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function(e) {
+                                $('#gambar_preview').attr('src', e.target.result).show();
+                            };
+
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                });
+            </script>
         </div>
     </div>
 @endsection
