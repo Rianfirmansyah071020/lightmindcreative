@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BidangTimController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,4 @@ Route::post('/tim', [TimController::class, 'store'])->name('tim');
 Route::get('/tim/delete/{id}/{id_user}', [TimController::class, 'destroy'])->name('tim.delete');
 Route::get('/tim/edit/{id}/{id_user}', [TimController::class, 'edit'])->name('tim.edit');
 Route::put('/tim/update/{id}/{id_user}', [TimController::class, 'update'])->name('tim.update');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

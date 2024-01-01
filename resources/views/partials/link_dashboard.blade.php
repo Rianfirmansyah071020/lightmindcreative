@@ -1,5 +1,5 @@
 <!-- base:css -->
-
+<link rel="stylesheet" href="{{ asset('custom/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/typicons.font/font/typicons.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/css/vendor.bundle.base.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets_dashboard/css/vertical-layout-light/style.css') }}" />

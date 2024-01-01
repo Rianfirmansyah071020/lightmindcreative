@@ -13,7 +13,7 @@
 <script src="{{ asset('assets_dashboard/js/file-upload.js') }}"></script>
 <script src="{{ asset('assets_dashboard/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('assets_dashboard/js/typeahead.js') }}"></script>
-
+<script src="{{ asset('custom/bootstrap/js/bootstrap.min.js') }}"></script>
 
 <script>
     new DataTable('#datatable', {

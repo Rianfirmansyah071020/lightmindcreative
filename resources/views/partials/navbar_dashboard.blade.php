@@ -125,6 +125,10 @@
                     <span class="nav-profile-name">{{ $timById->nama_tim }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="{{ route('profile') }}">
+                        <i class="typcn typcn-cog text-primary"></i>
+                        Profile
+                    </a>
                     <a class="dropdown-item" href="">
                         <i class="typcn typcn-cog text-primary"></i>
                         Settings

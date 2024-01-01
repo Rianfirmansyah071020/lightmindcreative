@@ -86,7 +86,73 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="text-center">
+                        <td class="text-center d-flex justify-content-between gap-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalShow{{ $data['id_tim'] }}">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalShow{{ $data['id_tim'] }}" tabindex="-1"
+                                aria-labelledby="modalShowLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-success text-white">
+                                            <h1 class="modal-title fs-5" id="modalShowLabel">Detail Data
+                                                {{ $data['nama_tim'] }}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-lg-6">
+                                                    <img src="{{ $data['file_gambar_tim'] }}"
+                                                        alt="{{ $data['nama_tim'] }}" style="all: initial; width:200px;">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <td class="text-start">Nama</td>
+                                                            <td class="text-start"> {{ $data['nama_tim'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Jenis Kelamin</td>
+                                                            <td class="text-start"> {{ $data['jenis_kelamin_tim'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Alamat</td>
+                                                            <td class="text-start"> {{ $data['alamat_tim'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Bidang</td>
+                                                            <td class="text-start"> {{ $data['nama_bidang_tim'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Deskripsi Bidang</td>
+                                                            <td class="text-start"> {{ $data['deskripsi_bidang_tim'] }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Email</td>
+                                                            <td class="text-start"> {{ $data['email'] }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start">Level Akun</td>
+                                                            <td class="text-start"> {{ $data['level_user'] }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success"
+                                                data-bs-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="{{ route('tim.edit', [$data['id_tim'], $data['id_user']]) }}"
                                 class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="{{ route('tim.delete', [$data['id_tim'], $data['id_user']]) }}"
