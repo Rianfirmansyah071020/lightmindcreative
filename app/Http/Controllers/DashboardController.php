@@ -20,6 +20,11 @@ class DashboardController extends Controller
 
         $data['aktifitas'] = DB::table('tb_aktifitas')->where('id_user', Session::get('id_user'))->orderBy('id_aktifitas', 'desc')->where('created_at', '>=', date('Y-m-d'))->get();
 
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
+
+
+
         return view("pages.dashboard.index", $data);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -39,6 +40,7 @@ class AuthController extends Controller
 
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
 
+
             if (auth()->user()->status_user == 1) {
                 if (auth()->user()->level_user == 1) {
 
@@ -53,7 +55,9 @@ class AuthController extends Controller
                             'remember_token' => $kodeRemember,
                         ])) {
 
+
                             Session::put('id_user', auth()->user()->id_user);
+                            Session::put('id_tim', DB::table('tb_tim')->where('id_tim', auth()->user()->id_tim)->value('id_tim'));
 
                             Session::flash('alert', [
                                 'icon' => 'success',
@@ -67,6 +71,7 @@ class AuthController extends Controller
                     } else {
 
                         Session::put('id_user', auth()->user()->id_user);
+                        Session::put('id_tim', DB::table('tb_tim')->where('id_tim', auth()->user()->id_tim)->value('id_tim'));
 
                         Session::flash('alert', [
                             'icon' => 'success',

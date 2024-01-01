@@ -22,12 +22,16 @@ class BidangTimController extends Controller
             Aktifitas::CreateAktifitas('akses bidang tim');
         }
 
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
+
         $bidang = DB::table('tb_bidang_tim')->get();
 
         // return $bidang;
 
         foreach ($bidang as $key => $value) {
             $tim = DB::table('tb_tim')->where('id_user', $value->id_user)->first();
+
             $data['bidang'][] = [
                 'id_bidang_tim' => $value->id_bidang_tim,
                 'aktor' => $tim->nama_tim,
@@ -35,6 +39,10 @@ class BidangTimController extends Controller
                 'deskripsi_bidang_tim' => $value->deskripsi_bidang_tim,
             ];
         }
+
+
+
+
 
 
 
@@ -53,7 +61,11 @@ class BidangTimController extends Controller
             Aktifitas::CreateAktifitas('Tambah Data Bidang');
         }
 
-        return view('pages.dashboard.bidang.create');
+
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
+
+        return view('pages.dashboard.bidang.create', $data);
     }
 
     /**
@@ -128,6 +140,8 @@ class BidangTimController extends Controller
             Aktifitas::CreateAktifitas('Edit Data Bidang');
         }
 
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
 
         $data['data'] = BidangTim::where('id_bidang_tim', $id)->first();
@@ -195,6 +209,15 @@ class BidangTimController extends Controller
             return redirect('/login');
         } else {
             Aktifitas::CreateAktifitas('Hapus Data Bidang');
+        }
+
+        if (DB::table('tb_tim')->where('id_bidang_tim', $id)->exists()) {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Opps!',
+                'text' => 'data ini tidak bisa dihapus karena data ini terhubung ke data lain',
+            ]);
+            return redirect()->back();
         }
 
         if (BidangTim::DeleteBidang($id)) {

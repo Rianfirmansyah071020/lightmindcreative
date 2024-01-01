@@ -35,9 +35,8 @@
                     <th class="text-center">Status Tim</th>
                     <th class="text-center">Bidang</th>
                     <th class="text-center">Deskripsi Bidang</th>
-                    <th class="text-center">Gambar</th>
                     <th class="text-center">Email</th>
-                    <th class="text-center">Level</th>
+                    <th class="text-center">Level Akun</th>
                     <th class="text-center">Status Akun</th>
                     <th class="text-center">___Opsi___</th>
                 </tr>
@@ -51,17 +50,46 @@
                         <td class="text-center">{{ $data['jenis_kelamin_tim'] }}</td>
                         <td class="text-center">{{ $data['alamat_tim'] }}</td>
                         <td class="text-center">{{ $data['nomor_hp_tim'] }}</td>
-                        <td class="text-center">{{ $data['status_tim'] }}</td>
+                        <td class="text-center">
+                            @if ($data['status_tim'] == 1)
+                                <span class="badge badge-success">
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="badge badge-danger">
+                                    Tidak
+                                </span>
+                            @endif
+                        </td>
                         <td class="text-center">{{ $data['nama_bidang_tim'] }}</td>
                         <td class="text-center">{{ $data['deskripsi_bidang_tim'] }}</td>
-                        <td class="text-center">{{ $data['file_gambar_tim'] }}</td>
                         <td class="text-center">{{ $data['email'] }}</td>
-                        <td class="text-center">{{ $data['level_user'] }}</td>
-                        <td class="text-center">{{ $data['status_user'] }}</td>
                         <td class="text-center">
-                            <a href="{{ route('bidang.edit', $data['id_tim']) }}" class="btn btn-warning"><i
-                                    class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{ route('bidang.delete', $data['id_tim']) }}"
+                            @if ($data['level_user'] == 1)
+                                <span class="badge badge-info">
+                                    Admin
+                                </span>
+                            @else
+                                <span class="badge badge-danger">
+                                    -
+                                </span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if ($data['status_user'] == 1)
+                                <span class="badge badge-success">
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="badge badge-danger">
+                                    Tidak
+                                </span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('tim.edit', [$data['id_tim'], $data['id_user']]) }}"
+                                class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{ route('tim.delete', [$data['id_tim'], $data['id_user']]) }}"
                                 onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
                                 class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                         </td>

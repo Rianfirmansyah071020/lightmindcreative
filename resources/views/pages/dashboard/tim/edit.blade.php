@@ -9,7 +9,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('tim') }}">Tim</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tim.create') }}">Create</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('tim.edit', [$dataTim->id_tim, $dataUser->id_user]) }}">Edit</a>
+            </li>
         </ol>
     </nav>
 @endsection
@@ -32,8 +33,8 @@
                     </div>
                     <div class="col-lg-8">
                         <input type="text" name="nama_tim" id="nama_tim"
-                            class="form-control @error('nama_tim') is-invalid @enderror" value="{{ old('nama_tim') }}"
-                            placeholder="nama " required>
+                            class="form-control @error('nama_tim') is-invalid @enderror"
+                            value="{{ $dataTim->nama_tim ?? old('nama_tim') }}" placeholder="nama " required>
                         @error('nama_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -45,9 +46,9 @@
                     </div>
                     <div class="col-lg-10">
                         <input type="radio" name="jenis_kelamin_tim" id="L" value="L"
-                            @checked(old('jenis_kelamin_tim') == 'L')> laki-Laki <br>
+                            @checked($dataTim->jenis_kelamin_tim == 'L')> laki-Laki <br>
                         <input type="radio" name="jenis_kelamin_tim" id="P" value="P"
-                            @checked(old('jenis_kelamin_tim') == 'P')> Perempuan
+                            @checked($dataTim->jenis_kelamin_tim == 'P')> Perempuan
                     </div>
                 </div>
                 <div class="form-group row">
@@ -56,7 +57,7 @@
                     </div>
                     <div class="col-lg-10">
                         <textarea name="alamat_tim" id="alamat_tim" cols="30" rows="5"
-                            class="form-control @error('alamat_tim') is-invalid @enderror" placeholder="alamat" required>{{ old('alamat_tim') }}</textarea>
+                            class="form-control @error('alamat_tim') is-invalid @enderror" placeholder="alamat" required>{{ $dataTim->alamat_tim ?? old('alamat_tim') }}</textarea>
                         @error('alamat_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -69,7 +70,7 @@
                     <div class="col-lg-5">
                         <input type="text" name="nomor_hp_tim" id="nomor_hp_tim"
                             class="form-control @error('nomor_hp_tim') is-invalid @enderror"
-                            value="{{ old('nomor_hp_tim') }}" placeholder="nomor hp " required>
+                            value="{{ $dataTim->nomor_hp_tim ?? old('nomor_hp_tim') }}" placeholder="nomor hp " required>
                         @error('nomor_hp_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -80,9 +81,9 @@
                         <label for="status_tim">Status</label>
                     </div>
                     <div class="col-lg-10">
-                        <input type="radio" name="status_tim" id="1" value="1" @checked(old('status_tim') == '1')>
+                        <input type="radio" name="status_tim" id="1" value="1" @checked($dataTim->status_tim == 1)>
                         Aktif <br>
-                        <input type="radio" name="status_tim" id="0" value="0" @checked(old('status_tim') == '0')>
+                        <input type="radio" name="status_tim" id="0" value="0" @checked($dataTim->status_tim == 0)>
                         Tidak
                     </div>
                 </div>
@@ -96,7 +97,7 @@
                             style="height: 40px;">
                             <option value="">Pilih</option>
                             @foreach ($bidang as $data)
-                                <option value="{{ $data->id_bidang_tim }}" @selected(old('id_bidang_tim') == $data->id_bidang_tim)>
+                                <option value="{{ $data->id_bidang_tim }}" @selected($dataTim->id_bidang_tim ?? old('id_bidang_tim') == $data->id_bidang_tim)>
                                     {{ $data->nama_bidang_tim }}</option>
                             @endforeach
                         </select>
@@ -104,7 +105,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2">
-                        <label for="file_gambar_tim">Gambar</label>
+                        <label for="file_gambar_tim">Gambar Baru</label>
                     </div>
                     <div class="col-lg-4">
                         <input type="file" name="file_gambar_tim" id="file_gambar_tim"
@@ -115,7 +116,12 @@
                         @enderror
                         <div class="mt-4">
                             <img id="gambar_preview" src="#" alt="Preview"
-                                style="display: none; max-width: 100%; max-height: 100px;">
+                                style="display: none; max-width: 100%; max-height: 200px;">
+                        </div>
+                        <div class="mt-4">
+                            <p>Gambar lama</p>
+                            <img src="{{ asset($dataTim->file_gambar_tim) }}" alt="Preview"
+                                style=" max-width: 100%; max-height: 200px;">
                         </div>
                     </div>
                 </div>
@@ -125,8 +131,8 @@
                     </div>
                     <div class="col-lg-5">
                         <input type="email" name="email" id="email"
-                            class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                            placeholder="email " required>
+                            class="form-control @error('email') is-invalid @enderror"
+                            value="{{ $dataUser->email ?? old('email') }}" placeholder="email " required>
                         @error('email')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -134,7 +140,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-2">
-                        <label for="password">Password Akun</label>
+                        <label for="password">Password Akun Baru</label>
                     </div>
                     <div class="col-lg-6">
                         <input type="text" name="password" id="password"
@@ -151,7 +157,7 @@
                     </div>
                     <div class="col-lg-10">
                         <input type="radio" name="level_user" id="1" value="1"
-                            @checked(old('level_user') == '1')>
+                            @checked($dataUser->level_user == 1)>
                         Admin <br>
                     </div>
                 </div>
@@ -161,21 +167,17 @@
                     </div>
                     <div class="col-lg-10">
                         <input type="radio" name="status_user" id="1" value="1"
-                            @checked(old('status_user') == '1')>
+                            @checked($dataUser->status_user == 1)>
                         Aktif <br>
                         <input type="radio" name="status_user" id="0" value="0"
-                            @checked(old('status_user') == '0')>
+                            @checked($dataUser->status_user == 0)>
                         Tidak
                     </div>
                 </div>
 
-                {{-- <div class=" d-flex justify-content-end">
-                    <a href="javascript:void(0);" class="btn btn-danger removeRow">Hapus Baris</a>
-                </div> --}}
+
             </div>
             <div class="d-flex justify-content-end mt-5 gap-3">
-
-                {{-- <a href="javascript:void(0);" class="btn btn-info m-2" id="addRow">Tambah Baris</a> --}}
                 <button type="submit" class="btn btn-success m-2">Simpan</button>
             </div>
         </form>

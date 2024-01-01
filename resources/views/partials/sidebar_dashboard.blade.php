@@ -3,12 +3,12 @@
         <li class="nav-item">
             <div class="d-flex sidebar-profile">
                 <div class="sidebar-profile-image">
-                    <img src="{{ asset('assets_dashboard/images/faces/face29.png') }}" alt="image">
+                    <img src="{{ asset($timById->file_gambar_tim) }}" alt="image">
                     <span class="sidebar-status-indicator"></span>
                 </div>
                 <div class="sidebar-profile-name">
                     <p class="sidebar-name">
-                        Kenneth Osborne
+                        {{ $timById->nama_tim }}
                     </p>
                     <p class="sidebar-designation">
                         Welcome

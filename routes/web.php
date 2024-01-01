@@ -33,3 +33,6 @@ Route::get('/bidang/edit/{id}', [BidangTimController::class, 'edit'])->name('bid
 Route::put('/bidang/update/{id}', [BidangTimController::class, 'update'])->name('bidang.update');
 Route::get('/tim', [TimController::class, 'index'])->name('tim');
 Route::get('/tim/create', [TimController::class, 'create'])->name('tim.create');
+Route::post('/tim', [TimController::class, 'store'])->name('tim');
+Route::get('/tim/delete/{id}/{id_user}', [TimController::class, 'destroy'])->name('tim.delete');
+Route::get('/tim/edit/{id}/{id_user}', [TimController::class, 'edit'])->name('tim.edit');

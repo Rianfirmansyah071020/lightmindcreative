@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/typicons.font/font/typicons.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets_dashboard/vendors/css/vendor.bundle.base.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets_dashboard/css/vertical-layout-light/style.css') }}" />
-<link rel="stylesheet" href="{{ asset('custom/css/style.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('custom/css/style.css') }}"> --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <!-- endinject -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
