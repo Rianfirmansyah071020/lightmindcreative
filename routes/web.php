@@ -36,3 +36,4 @@ Route::get('/tim/create', [TimController::class, 'create'])->name('tim.create');
 Route::post('/tim', [TimController::class, 'store'])->name('tim');
 Route::get('/tim/delete/{id}/{id_user}', [TimController::class, 'destroy'])->name('tim.delete');
 Route::get('/tim/edit/{id}/{id_user}', [TimController::class, 'edit'])->name('tim.edit');
+Route::put('/tim/update/{id}/{id_user}', [TimController::class, 'update'])->name('tim.update');

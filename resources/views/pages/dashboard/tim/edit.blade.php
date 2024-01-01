@@ -24,8 +24,10 @@
     </div>
 
     <div class="row card p-4 mt-2">
-        <form action="{{ route('tim') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('tim.update', [$dataTim->id_tim, $dataUser->id_user]) }}" method="post"
+            enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row-container" data-row="1">
                 <div class="form-group row">
                     <div class="col-lg-2">
@@ -110,7 +112,7 @@
                     <div class="col-lg-4">
                         <input type="file" name="file_gambar_tim" id="file_gambar_tim"
                             class="form-control @error('file_gambar_tim') is-invalid @enderror"
-                            value="{{ old('file_gambar_tim') }}" required>
+                            value="{{ old('file_gambar_tim') }}">
                         @error('file_gambar_tim')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
@@ -145,7 +147,7 @@
                     <div class="col-lg-6">
                         <input type="text" name="password" id="password"
                             class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}"
-                            placeholder="password " required>
+                            placeholder="password ">
                         @error('password')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror

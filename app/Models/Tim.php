@@ -97,4 +97,36 @@ class Tim extends Model
 
         return $sukses;
     }
+
+
+    public static function UpdateTim($data, $id_tim, $id_user)
+    {
+
+        $update = Tim::where('id_tim', $id_tim)->update([
+            'id_user' => $id_user,
+            'id_bidang_tim' => $data['id_bidang_tim'],
+            'nama_tim' => $data['nama_tim'],
+            'jenis_kelamin_tim' => $data['jenis_kelamin_tim'],
+            'alamat_tim' => $data['alamat_tim'],
+            'nomor_hp_tim' => $data['nomor_hp_tim'],
+            'status_tim' => $data['status_tim'],
+            'file_gambar_tim' => $data['file'],
+        ]);
+
+        $updateUser = User::where('id_user', $id_user)->update([
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'level_user' => $data['level_user'],
+            'status_user' => $data['status_user'],
+
+        ]);
+
+
+        $sukses = [
+            $update,
+            $updateUser
+        ];
+
+        return $sukses;
+    }
 }

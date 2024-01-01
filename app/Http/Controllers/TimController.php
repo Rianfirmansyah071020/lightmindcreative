@@ -7,6 +7,9 @@ use App\Models\Tim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\MailSend;
+use App\Models\BidangTim;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class TimController extends Controller
@@ -111,6 +114,8 @@ class TimController extends Controller
             $file = 'images/tim/' . $nama_file;
         }
 
+        $dataBidang = BidangTim::where('id_bidang_tim', $request->input('id_bidang_tim'))->first();
+
         $data = [
             'id_tim' => Tim::GenerateID(),
             'id_bidang_tim' => $request->input('id_bidang_tim'),
@@ -120,14 +125,19 @@ class TimController extends Controller
             'alamat_tim' => $request->input('alamat_tim'),
             'nomor_hp_tim' => $request->input('nomor_hp_tim'),
             'status_tim' => $request->input('status_tim'),
+            'nama_bidang_tim' => $dataBidang->nama_bidang_tim,
+            'deskripsi_bidang_tim' => $dataBidang->deskripsi_bidang_tim,
             'file' => $file,
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'password_ori' => $request->input('password'),
             'level_user' => $request->input('level_user'),
             'status_user' => $request->input('status_user'),
         ];
 
-        if (Tim::CreateTim($data)) {
+        if (Tim::CreateTim($data) && Mail::to($request->email)->send(new MailSend($data))) {
+
+
             Session::flash('alert', [
                 'icon' => 'success',
                 'title' => 'Berhasil',
@@ -178,9 +188,65 @@ class TimController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, $id_user)
     {
-        //
+
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('update tim');
+        }
+
+        $dataTim = DB::table('tb_tim')->where('id_tim', $id)->first();
+        $dataUser = DB::table('users')->where('id_user', $id_user)->first();
+
+        if ($request->file('file_gambar_tim') == null) {
+            $file = $dataTim->file_gambar_tim;
+        } else {
+            $nama_file = $request->file('file_gambar_tim')->getClientOriginalName();
+            $file = $request->file('file_gambar_tim')->move('images/tim', $nama_file);
+            $file = 'images/tim/' . $nama_file;
+        }
+
+
+        if ($request->input('password') == null) {
+            $password = $dataUser->password;
+        } else {
+            $password = Hash::make($request->input('password'));
+        }
+
+
+        $data = [
+            'id_tim' => Tim::GenerateID(),
+            'id_bidang_tim' => $request->input('id_bidang_tim'),
+            'id_user' => Session::get('id_user'),
+            'nama_tim' => $request->input('nama_tim'),
+            'jenis_kelamin_tim' => $request->input('jenis_kelamin_tim'),
+            'alamat_tim' => $request->input('alamat_tim'),
+            'nomor_hp_tim' => $request->input('nomor_hp_tim'),
+            'status_tim' => $request->input('status_tim'),
+            'file' => $file,
+            'email' => $request->input('email'),
+            'password' => $password,
+            'level_user' => $request->input('level_user'),
+            'status_user' => $request->input('status_user'),
+        ];
+
+        if (Tim::UpdateTim($data, $id, $id_user)) {
+            Session::flash('alert', [
+                'icon' => 'success',
+                'title' => 'Berhasil',
+                'text' => 'Tim berhasil diperbarui'
+            ]);
+            return redirect()->route('tim');
+        } else {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal',
+                'text' => 'Tim gagal diperbarui'
+            ]);
+            return redirect()->route('tim');
+        }
     }
 
     /**

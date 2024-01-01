@@ -16,15 +16,7 @@
                 </div>
             </div>
             <div class="nav-search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Type to search..." aria-label="search"
-                        aria-describedby="search">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="search">
-                            <i class="typcn typcn-zoom"></i>
-                        </span>
-                    </div>
-                </div>
+
             </div>
             <p class="sidebar-menu-title">Dash menu</p>
         </li>

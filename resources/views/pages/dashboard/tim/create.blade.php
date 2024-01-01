@@ -115,7 +115,7 @@
                         @enderror
                         <div class="mt-4">
                             <img id="gambar_preview" src="#" alt="Preview"
-                                style="display: none; max-width: 100%; max-height: 100px;">
+                                style="display: none; max-width: 100%; max-height: 200px;">
                         </div>
                     </div>
                 </div>
