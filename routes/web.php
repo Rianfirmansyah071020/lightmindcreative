@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BidangTimController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KontenHeroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimController;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +42,6 @@ Route::put('/tim/update/{id}/{id_user}', [TimController::class, 'update'])->name
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/setting', [ProfileController::class, 'viewSetting'])->name('setting');
 Route::put('/setting/{id}/{id_user}', [ProfileController::class, 'SettingProfile'])->name('SettingProfile');
+
+// hero
+Route::get('/hero', [KontenHeroController::class, 'index'])->name('hero');
