@@ -49,3 +49,4 @@ Route::get('/hero/create', [KontenHeroController::class, 'create'])->name('hero.
 Route::post('/hero', [KontenHeroController::class, 'store'])->name('hero');
 Route::get('/hero/delete/{id}/{id_teks}', [KontenHeroController::class, 'destroy'])->name('hero.delete');
 Route::get('/hero/{id}/{id_teks}', [KontenHeroController::class, 'edit'])->name('hero.edit');
+Route::put('/hero/update/{id}/{id_teks}', [KontenHeroController::class, 'update'])->name('hero.update');

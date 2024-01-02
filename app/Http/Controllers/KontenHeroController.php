@@ -167,9 +167,69 @@ class KontenHeroController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, $id_teks)
     {
-        //
+
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('update konten hero');
+        }
+
+        $validasi = $request->validate([
+            'status_gambar_hero' => 'required',
+            'judul_teks_hero' => 'required',
+            'deskripsi_teks_hero' => 'required'
+        ], [
+            'status_gambar_hero.required' => 'Status gambar hero harus diisi',
+            'judul_teks_hero.required' => 'Judul teks hero harus diisi',
+            'deskripsi_teks_hero.required' => 'Deskripsi teks hero harus diisi'
+        ]);
+
+
+        if ($request->file('file_gambar_hero') != null) {
+
+            $file = $request->file('file_gambar_hero');
+            $file = $request->file('file_gambar_hero');
+            $filename = $file->getClientOriginalName();
+
+            $file->move(public_path('images/hero'), $filename);
+            $filename = 'images/hero/' . $filename;
+        } else {
+            $dataGambarHeroById = DB::table('tb_gambar_hero')->where('id_gambar_hero', $id)->first();
+            $filename = $dataGambarHeroById->file_gambar_hero;
+        }
+
+        $updateGambarHero = GambarHero::where('id_gambar_hero', $id)->update([
+            'id_user' => Session::get('id_user'),
+            'file_gambar_hero' => $filename,
+            'status_gambar_hero' => $request->status_gambar_hero
+
+        ]);
+
+        $updateTeksHero = TeksHero::where('id_teks_hero', $id_teks)->update([
+            'id_user' => Session::get('id_user'),
+            'judul_teks_hero' => $request->judul_teks_hero,
+            'deskripsi_teks_hero' => $request->deskripsi_teks_hero
+
+        ]);
+
+
+        if ($updateGambarHero || $updateTeksHero) {
+            Session::flash('alert', [
+                'icon' => 'success',
+                'title' => 'Berhasil!',
+                'text' => 'data konten hero berhasil di edit',
+            ]);
+            return redirect()->route('hero');
+        } else {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'data konten hero gagal di edit',
+            ]);
+            return redirect()->route('hero');
+        }
     }
 
     /**
