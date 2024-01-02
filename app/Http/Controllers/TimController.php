@@ -32,6 +32,7 @@ class TimController extends Controller
         $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
 
+        $data['tim'] = [];
         foreach ($tim as $key => $value) {
             $user = DB::table('users')->where('id_tim', $value->id_tim)->first();
             $aktor = DB::table('tb_tim')->where('id_user', $value->id_user)->first();

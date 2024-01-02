@@ -45,3 +45,7 @@ Route::put('/setting/{id}/{id_user}', [ProfileController::class, 'SettingProfile
 
 // hero
 Route::get('/hero', [KontenHeroController::class, 'index'])->name('hero');
+Route::get('/hero/create', [KontenHeroController::class, 'create'])->name('hero.create');
+Route::post('/hero', [KontenHeroController::class, 'store'])->name('hero');
+Route::get('/hero/delete/{id}/{id_teks}', [KontenHeroController::class, 'destroy'])->name('hero.delete');
+Route::get('/hero/{id}/{id_teks}', [KontenHeroController::class, 'edit'])->name('hero.edit');

@@ -28,7 +28,7 @@ class BidangTimController extends Controller
         $bidang = DB::table('tb_bidang_tim')->get();
 
         // return $bidang;
-
+        $data['bidang'] = [];
         foreach ($bidang as $key => $value) {
             $tim = DB::table('tb_tim')->where('id_user', $value->id_user)->first();
 
@@ -39,13 +39,6 @@ class BidangTimController extends Controller
                 'deskripsi_bidang_tim' => $value->deskripsi_bidang_tim,
             ];
         }
-
-
-
-
-
-
-
 
         return view('pages.dashboard.bidang.index', $data);
     }

@@ -16,4 +16,22 @@ class GambarHero extends Model
         'file_gambar_hero',
         'status_gambar_hero'
     ];
+
+
+    public static function GenerateID()
+    {
+
+        $prefix = "GAMBAR" . date('Ymd');
+        $lastID = GambarHero::where('id_gambar_hero', 'like', $prefix . '%')->max('id_gambar_hero');
+
+        if ($lastID == null) {
+            return $prefix . "0000001";
+        } else {
+            $lastID = str_replace($prefix, '', $lastID);
+            $lastID = (int) $lastID;
+            $lastID += 1;
+            $lastID = str_pad($lastID, 7, '0', STR_PAD_LEFT);
+            return $prefix . $lastID;
+        }
+    }
 }
