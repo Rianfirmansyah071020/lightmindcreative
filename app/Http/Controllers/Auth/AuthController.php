@@ -16,6 +16,7 @@ class AuthController extends Controller
         if ($dataUser = User::where('remember_token', $request->cookie('remember_token'))->first()) {
 
             Session::put('id_user', $dataUser->id_user);
+            Session::put('id_tim', DB::table('tb_tim')->where('id_tim', $dataUser->id_tim)->value('id_tim'));
 
             return redirect('/dashboard');
         }

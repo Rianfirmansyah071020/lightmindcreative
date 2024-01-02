@@ -27,9 +27,11 @@
                 <img src="{{ asset($timById->file_gambar_tim) }}" alt="{{ $timById->nama_tim }}" style="width: 95%;">
             </div>
         </div>
-        <div class="col-lg-7 card col-12 p-3">
-            <form action="{{ route('tim') }}" method="post" enctype="multipart/form-data">
+        <div class="col-lg-7 card col-12 p-4">
+            <form action="{{ route('SettingProfile', [$timById->id_tim, $akunById->id_user]) }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row-container" data-row="1">
                     <div class="form-group row">
                         <div class="col-lg-2">
@@ -104,7 +106,7 @@
                         <div class="col-lg-10">
                             <input type="file" name="file_gambar_tim" id="file_gambar_tim"
                                 class="form-control  @error('file_gambar_tim') is-invalid @enderror"
-                                value="{{ old('file_gambar_tim') }}" required>
+                                value="{{ old('file_gambar_tim') }}">
                             @error('file_gambar_tim')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror
@@ -134,7 +136,7 @@
                         <div class="col-lg-10">
                             <input type="text" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror"
-                                value="{{ old('password') }}" placeholder="password " required>
+                                value="{{ old('password') }}" placeholder="password ">
                             @error('password')
                                 <i class="text-danger">{{ $message }}</i>
                             @enderror

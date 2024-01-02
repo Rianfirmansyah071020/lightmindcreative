@@ -129,7 +129,7 @@
                         <i class="typcn typcn-cog text-primary"></i>
                         Profile
                     </a>
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ route('setting') }}">
                         <i class="typcn typcn-cog text-primary"></i>
                         Settings
                     </a>
