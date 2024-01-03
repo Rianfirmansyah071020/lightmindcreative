@@ -52,7 +52,17 @@ class KontenTentangController extends Controller
      */
     public function create()
     {
-        //
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('akses create konten tentang');
+        }
+
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
+
+
+        return view('pages.dashboard.kontenTentang.create', $data);
     }
 
     /**
@@ -60,7 +70,21 @@ class KontenTentangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validasi = $request->validate(
+            [
+                'judul_tentang' => 'required',
+                'deskripsi_judul_tentang' => 'required',
+                'deskripsi_tentang' => 'required',
+                'file_gambar_tentang' => 'required',
+                'status_tentang' => 'required',
+            ],
+            [
+                'required' => ':attribute harus diisi',
+
+            ]
+        );
+
+        return $request->all();
     }
 
     /**
