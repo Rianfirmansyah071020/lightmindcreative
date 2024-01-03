@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BidangTimController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KontenHeroController;
+use App\Http\Controllers\KontenTentangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimController;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +51,11 @@ Route::post('/hero', [KontenHeroController::class, 'store'])->name('hero');
 Route::get('/hero/delete/{id}/{id_teks}', [KontenHeroController::class, 'destroy'])->name('hero.delete');
 Route::get('/hero/{id}/{id_teks}', [KontenHeroController::class, 'edit'])->name('hero.edit');
 Route::put('/hero/update/{id}/{id_teks}', [KontenHeroController::class, 'update'])->name('hero.update');
+
+// tentang
+Route::get('/tentang', [KontenTentangController::class, 'index'])->name('tentang');
+Route::get('/tentang/create', [KontenTentangController::class, 'create'])->name('tentang.create');
+Route::post('/tentang', [KontenTentangController::class, 'store'])->name('tentang');
+Route::get('/tentang/delete/{id}/{id_teks}', [KontenTentangController::class, 'destroy'])->name('tentang.delete');
+Route::get('/tentang/{id}/{id_teks}', [KontenTentangController::class, 'edit'])->name('tentang.edit');
+Route::put('/tentang/update/{id}/{id_teks}', [KontenTentangController::class, 'update'])->name('tentang.update');

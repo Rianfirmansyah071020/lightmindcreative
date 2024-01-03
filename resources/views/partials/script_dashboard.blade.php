@@ -14,12 +14,19 @@
 <script src="{{ asset('assets_dashboard/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('assets_dashboard/js/typeahead.js') }}"></script>
 <script src="{{ asset('custom/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
 
 <script>
     new DataTable('#datatable', {
         "language": {
             "emptyTable": '<img src="{{ asset('custom/data4.gif') }}" alt="No Data" class=" w-25 h-25"><p>No data available</p>'
         }
+    });
+</script>
+
+<script>
+    tinymce.init({
+        selector: '.mytextarea'
     });
 </script>
 

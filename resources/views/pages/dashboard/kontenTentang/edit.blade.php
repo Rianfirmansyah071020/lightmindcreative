@@ -9,7 +9,9 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('hero') }}">Konten Hero</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('hero.create') }}">Create</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('hero.edit', [$gambarHeroById->id_gambar_hero, $teksHeroById->id_teks_hero]) }}">Edit</a>
+            </li>
         </ol>
     </nav>
 @endsection
@@ -23,23 +25,30 @@
     </div>
 
     <div class="row card p-4 mt-2">
-        <form action="{{ route('hero') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('hero.update', [$gambarHeroById->id_gambar_hero, $teksHeroById->id_teks_hero]) }}"
+            method="post" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row-container" data-row="1">
                 <div class="form-group row">
                     <div class="col-lg-2">
-                        <label for="file_gambar_hero">Gambar Hero</label>
+                        <label for="file_gambar_hero">Gambar Hero Baru</label>
                     </div>
                     <div class="col-lg-4">
-                        <input type="file" name="file_gambar_hero[]" id="file_gambar_hero_1"
-                            class="form-control @error('file_gambar_hero.1') is-invalid @enderror"
-                            value="{{ old('file_gambar_hero.1') }}" required>
-                        @error('file_gambar_hero.1')
+                        <input type="file" name="file_gambar_hero" id="file_gambar_hero_1"
+                            class="form-control @error('file_gambar_hero') is-invalid @enderror"
+                            value="{{ $gambarHeroById->file_gambar_hero ?? old('file_gambar_hero') }}">
+                        @error('file_gambar_hero')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
                         <div class="mt-4">
                             <img id="gambar_preview_1" src="#" alt="Preview"
                                 style="display: none; max-width: 100%; max-height: 200px;">
+                        </div>
+
+                        <div class="mt-4">
+                            <p>Gambar Hero Lama</p>
+                            <img src="{{ asset($gambarHeroById->file_gambar_hero) }}" alt="" style="width: 200px;">
                         </div>
                     </div>
                 </div>
@@ -48,12 +57,14 @@
                         <label for="status_gambar_hero">Status gambar hero</label>
                     </div>
                     <div class="col-lg-10">
-                        <select name="status_gambar_hero[1]" id="status_gambar_hero_1"
-                            class="form-control @error('status_gambar_hero.1') is-invalid @enderror" required>
-                            <option value="1" {{ old('status_gambar_hero.1') == '1' ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ old('status_gambar_hero.1') == '0' ? 'selected' : '' }}>Tidak</option>
+                        <select name="status_gambar_hero" id="status_gambar_hero_1"
+                            class="form-control @error('status_gambar_hero') is-invalid @enderror" required>
+                            <option value="1" {{ $gambarHeroById->status_gambar_hero == 1 ? 'selected' : '' }}>
+                                Aktif</option>
+                            <option value="0" {{ $gambarHeroById->status_gambar_hero == 0 ? 'selected' : '' }}>
+                                Tidak</option>
                         </select>
-                        @error('status_gambar_hero.1')
+                        @error('status_gambar_hero')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
                     </div>
@@ -63,10 +74,11 @@
                         <label for="judul_teks_hero">Judul Hero</label>
                     </div>
                     <div class="col-lg-10">
-                        <input type="text" name="judul_teks_hero[]" id="judul_teks_hero_1"
-                            class="form-control @error('judul_teks_hero.1') is-invalid @enderror"
-                            value="{{ old('judul_teks_hero.1') }}" placeholder="judul" required>
-                        @error('judul_teks_hero.1')
+                        <input type="text" name="judul_teks_hero" id="judul_teks_hero_1"
+                            class="form-control @error('judul_teks_hero') is-invalid @enderror"
+                            value="{{ $teksHeroById->judul_teks_hero ?? old('judul_teks_hero') }}" placeholder="judul"
+                            required>
+                        @error('judul_teks_hero')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
                     </div>
@@ -76,21 +88,15 @@
                         <label for="deskripsi_teks_hero">Deskripsi Hero</label>
                     </div>
                     <div class="col-lg-10">
-                        <textarea name="deskripsi_teks_hero[]" id="deskripsi_teks_hero_1" cols="30" rows="5"
-                            class="form-control mytextarea @error('deskripsi_teks_hero.1') is-invalid @enderror" placeholder="deskripsi"
-                            required>{{ old('deskripsi_teks_hero.1') }}</textarea>
-                        @error('deskripsi_teks_hero.1')
+                        <textarea name="deskripsi_teks_hero" id="deskripsi_teks_hero_1" cols="30" rows="5"
+                            class="form-control @error('deskripsi_teks_hero') is-invalid @enderror" placeholder="deskripsi" required>{{ $teksHeroById->deskripsi_teks_hero ?? old('deskripsi_teks_hero') }}</textarea>
+                        @error('deskripsi_teks_hero')
                             <i class="text-danger">{{ $message }}</i>
                         @enderror
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-end">
-                    <a href="javascript:void(0);" class="btn btn-danger removeRow">Hapus Baris</a>
-                </div>
             </div>
             <div class="d-flex justify-content-end mt-5 gap-3">
-                <a href="javascript:void(0);" class="btn btn-info m-2" id="addRow">Tambah Baris</a>
                 <button type="submit" class="btn btn-success m-2">Simpan</button>
             </div>
         </form>

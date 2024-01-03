@@ -244,6 +244,14 @@ class KontenHeroController extends Controller
             Aktifitas::CreateAktifitas('delete konten hero');
         }
 
+        if (DB::table('tb_gambar_hero')->where('id_gambar_hero', $id)->where('status_gambar_hero', '1')->exists()) {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'data konten hero gagal di hapus karena gambar hero sedang aktif',
+            ]);
+            return redirect()->back();
+        }
 
 
         if (DB::table('tb_gambar_hero')->where('id_gambar_hero', $id)->delete() && DB::table('tb_teks_hero')->where('id_teks_hero', $id_teks)->delete()) {

@@ -1,14 +1,14 @@
 @extends('layouts.main_dashboard')
 
 @section('title')
-    Konten Hero
+    Konten Tentang
 @endsection
 
 @section('breadcrumb')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('hero') }}">Konten Hero</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('tentang') }}">Konten Tentang</a></li>
         </ol>
     </nav>
 @endsection
@@ -16,7 +16,7 @@
 @section('content')
     <div class="row p-3">
         <div class="d-flex justify-content-end">
-            <a href="{{ route('hero.create') }}" class="btn btn-primary btn-custom"><i class="fa-solid fa-plus"></i>
+            <a href="{{ route('tentang.create') }}" class="btn btn-primary btn-custom"><i class="fa-solid fa-plus"></i>
                 Tambah</a>
         </div>
     </div>
@@ -27,35 +27,37 @@
                 <tr>
                     <th class="text-center">No</th>
                     <th class="text-center">Aktor</th>
+                    <th class="text-center">Judul</th>
+                    <th class="text-center">Deskripsi Judul</th>
+                    <th class="text-center">Deskripsi Tentang</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Judul Teks Hero</th>
-                    <th class="text-center">Deskripsi Teks Hero</th>
                     <th class="text-center">___Opsi___</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($hero as $data)
+                @foreach ($tentang as $data)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center">{{ $data['aktor'] }}</td>
+                        <td class="text-center">{{ $data['judul_tentang'] }}</td>
+                        <td class="text-center">{{ $data['deskripsi_judul_tentang'] }}</td>
+                        <td class="text-center">{{ $data['deskripsi_tentang'] }}</td>
                         <td class="text-center">
-                            @if ($data['status_gambar_hero'] == 1)
+                            @if ($data['status_tentang'] == 1)
                                 <span class="badge badge-success">Aktif</span>
                             @else
                                 <span class="badge badge-danger">Tidak</span>
                             @endif
                         </td>
-                        <td class="text-center">{{ $data['judul_teks_hero'] }}</td>
-                        <td class="text-center">{{ $data['deskripsi_teks_hero'] }}</td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#modalShow{{ $data['id_gambar_hero'] }}">
+                                data-bs-target="#modalShow{{ $data['id_tentang'] }}">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="modalShow{{ $data['id_gambar_hero'] }}" tabindex="-1"
+                            <div class="modal fade" id="modalShow{{ $data['id_tentang'] }}" tabindex="-1"
                                 aria-labelledby="modalShowLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -85,9 +87,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('hero.edit', [$data['id_gambar_hero'], $data['id_teks_hero']]) }}"
+                            <a href="{{ route('tentang.edit', [$data['id_tentang'], $data['id_teks_hero']]) }}"
                                 class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{ route('hero.delete', [$data['id_gambar_hero'], $data['id_teks_hero']]) }}"
+                            <a href="{{ route('tentang.delete', [$data['id_tentang'], $data['id_teks_hero']]) }}"
                                 onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
                                 class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                         </td>
