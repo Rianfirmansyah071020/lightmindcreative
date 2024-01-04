@@ -1,14 +1,14 @@
 @extends('layouts.main_dashboard')
 
 @section('title')
-    Konten Hero
+    Konten Tentang
 @endsection
 
 @section('breadcrumb')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tentang') }}">Konten Hero</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('tentang') }}">Konten Tentang</a></li>
             <li class="breadcrumb-item"><a href="{{ route('tentang.create') }}">Create</a></li>
         </ol>
     </nav>

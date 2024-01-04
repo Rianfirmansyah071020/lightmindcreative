@@ -142,9 +142,23 @@ class KontenTentangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, $id_gambar)
     {
-        //
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('edit konten tentang');
+        }
+
+        $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
+        $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
+
+
+        $data['tentang'] = DB::table('tb_tentang')->where('id_tentang', $id)->first();
+        $data['gambar_tentang'] = DB::table('tb_gambar_tentang')->where('id_gambar_tentang', $id_gambar)->first();
+        $data['gambar_tentang_all'] = DB::table('tb_gambar_tentang')->where('id_tentang', $id)->get();
+
+        return view('pages.dashboard.kontenTentang.edit', $data);
     }
 
     /**
@@ -152,7 +166,7 @@ class KontenTentangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return $request->all();
     }
 
     /**
