@@ -158,8 +158,38 @@ class KontenTentangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, $id_gambar)
     {
-        //
+        if (Session::get('id_user') == null) {
+            return redirect('/login');
+        } else {
+            Aktifitas::CreateAktifitas('delete konten tentang');
+        }
+
+        if (DB::table('tb_tentang')->where('id_tentang', $id)->where('status_tentang', '1')->exists()) {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'data konten tentang gagal di hapus karena  sedang aktif',
+            ]);
+            return redirect()->back();
+        }
+
+
+        if (DB::table('tb_tentang')->where('id_tentang', $id)->delete() && DB::table('tb_gambar_tentang')->where('id_gambar_tentang', $id_gambar)->delete()) {
+            Session::flash('alert', [
+                'icon' => 'success',
+                'title' => 'Berhasil!',
+                'text' => 'data konten tentang berhasil di hapus',
+            ]);
+            return redirect()->back();
+        } else {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'data konten tentang gagal di hapus',
+            ]);
+            return redirect()->back();
+        }
     }
 }
