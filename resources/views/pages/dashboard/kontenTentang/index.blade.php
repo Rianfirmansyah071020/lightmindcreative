@@ -20,7 +20,7 @@
                 Tambah</a>
         </div>
     </div>
-    <p>Halaman Kelola Data Konten Hero</p>
+    <p>Halaman Kelola Data Konten Tentang</p>
     <div class="row card p-3 mt-2 table-responsive">
         <table class="table table-bordered table-hover" id="datatable">
             <thead>
@@ -50,7 +50,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <!-- Button trigger modal -->
+                            {{-- <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#modalShow{{ $data['id_tentang'] }}">
                                 <i class="fa-solid fa-eye"></i>
@@ -86,10 +86,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <a href="{{ route('tentang.edit', [$data['id_tentang'], $data['id_teks_hero']]) }}"
+                            </div> --}}
+                            <a href="{{ route('tentang.edit', [$data['id_tentang'], $data['id_gambar_tentang']]) }}"
                                 class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{ route('tentang.delete', [$data['id_tentang'], $data['id_teks_hero']]) }}"
+                            <a href="{{ route('tentang.delete', [$data['id_tentang'], $data['id_gambar_tentang']]) }}"
                                 onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
                                 class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                         </td>

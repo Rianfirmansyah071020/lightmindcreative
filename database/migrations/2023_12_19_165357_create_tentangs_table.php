@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_tentang', function (Blueprint $table) {
-            $table->string('id_string')->primary();
+            $table->string('id_tentang')->primary();
             $table->string('id_user');
             $table->text('judul_tentang');
             $table->longText('deskripsi_judul_tentang')->nullable();
