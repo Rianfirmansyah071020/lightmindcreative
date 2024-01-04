@@ -50,7 +50,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            {{-- <!-- Button trigger modal -->
+                            <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#modalShow{{ $data['id_tentang'] }}">
                                 <i class="fa-solid fa-eye"></i>
@@ -68,14 +68,19 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="row d-flex justify-content-between">
+                                                @foreach ($gambarTentang as $item)
+                                                    <div class="col-4">
+                                                        @if ($item->id_tentang == $data['id_tentang'])
+                                                            <img src="{{ $item->file_gambar_tentang }}"
+                                                                alt="{{ $data['judul_tentang'] }}"
+                                                                style="all: initial; width:100%;">
+                                                        @endif
+                                                    </div>
+                                                @endforeach
                                                 <div class="col-lg-12">
-                                                    <img src="{{ $data['file_gambar_hero'] }}"
-                                                        alt="{{ $data['judul_teks_hero'] }}"
-                                                        style="all: initial; width:200px;">
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <h2 class="text-center">{{ $data['judul_teks_hero'] }}</h2>
-                                                    <p class="text-justify">{{ $data['deskripsi_teks_hero'] }}</p>
+                                                    <h2 class="text-center">{{ $data['judul_tentang'] }}</h2>
+                                                    <p class="text-justify">{{ $data['deskripsi_judul_tentang'] }}</p>
+                                                    <p class="text-justify">{{ $data['deskripsi_tentang'] }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <a href="{{ route('tentang.edit', [$data['id_tentang'], $data['id_gambar_tentang']]) }}"
                                 class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="{{ route('tentang.delete', [$data['id_tentang'], $data['id_gambar_tentang']]) }}"

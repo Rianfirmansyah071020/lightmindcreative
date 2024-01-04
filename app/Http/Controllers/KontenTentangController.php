@@ -26,6 +26,7 @@ class KontenTentangController extends Controller
         $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
         $dataTentang = DB::table('tb_tentang')->get();
+
         $data['tentang'] = [];
 
         foreach ($dataTentang as $key => $value) {
@@ -44,6 +45,8 @@ class KontenTentangController extends Controller
                 'status_tentang' => $value->status_tentang,
             ];
         }
+
+        $data['gambarTentang'] = DB::table('tb_gambar_tentang')->get();
 
 
         return view('pages.dashboard.kontenTentang.index', $data);
