@@ -166,8 +166,58 @@ class KontenTentangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $request->all();
+        $validasi = $request->validate([
+            'judul_tentang' => 'required',
+            'deskripsi_judul_tentang' => 'required',
+            'deskripsi_tentang' => 'required',
+            'status_tentang' => 'required',
+        ]);
+
+        $updateTentang = Tentang::where('id_tentang', $id)->update([
+            'id_user' => Session::get('id_user'),
+            'judul_tentang' => $validasi['judul_tentang'],
+            'deskripsi_judul_tentang' => $validasi['deskripsi_judul_tentang'],
+            'deskripsi_tentang' => $validasi['deskripsi_tentang'],
+            'status_tentang' => $validasi['status_tentang'],
+        ]);
+
+        $updateGambarTentang = [];
+
+        if ($request->hasFile('file_gambar_tentang')) {
+            foreach ($request->file('file_gambar_tentang') as $key => $file) {
+                // Generate a unique filename for each image
+                $filename = 'images/tentang/' . $file->getClientOriginalName();
+
+                // Move the file to the public path
+                $file->move(public_path('images/tentang'), $filename);
+
+                // Update the database with the new file path
+                $updateGambarTentang[] = GambarTentang::where('id_gambar_tentang', $request->input('id_gambar_tentang')[$key])
+                    ->where('id_tentang', $id)
+                    ->update([
+                        'id_user' => Session::get('id_user'),
+                        'file_gambar_tentang' => $filename,
+                    ]);
+            }
+        }
+
+        if ($updateTentang || count($updateGambarTentang) > 0) {
+            Session::flash('alert', [
+                'icon' => 'success',
+                'title' => 'Berhasil!',
+                'text' => 'data konten tentang berhasil diupdate',
+            ]);
+            return redirect()->route('tentang');
+        } else {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal!',
+                'text' => 'data konten tentang gagal diupdate',
+            ]);
+            return redirect()->route('tentang');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

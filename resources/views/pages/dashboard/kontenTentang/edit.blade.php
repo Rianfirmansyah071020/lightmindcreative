@@ -91,6 +91,7 @@
                             <label for="file_gambar_tentang_1">Gambar Tentang</label>
                         </div>
                         <div class="col-lg-4">
+                            <input type="hidden" name="id_gambar_tentang[]" value="{{ $item->id_gambar_tentang }}">
                             <input type="file" name="file_gambar_tentang[]" id="file_gambar_tentang_1"
                                 class="form-control file-input">
                             <p>Gambar Lama</p>
