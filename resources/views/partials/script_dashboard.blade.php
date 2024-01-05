@@ -19,7 +19,7 @@
 <script>
     new DataTable('#datatable', {
         "language": {
-            "emptyTable": '<img src="{{ asset('custom/data4.gif') }}" alt="No Data" class=" w-25 h-25"><p>No data available</p>'
+            "emptyTable": '<img src="{{ asset('custom/data4.gif') }}" style="all: initial; width:100%;"alt="No Data" class=" w-25 h-25"><p>No data available</p>'
         }
     });
 </script>

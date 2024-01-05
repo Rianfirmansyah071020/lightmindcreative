@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BidangTimController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KontenHeroController;
+use App\Http\Controllers\KontenPelayananController;
 use App\Http\Controllers\KontenTentangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimController;
@@ -24,22 +25,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// auth
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// bidang
 Route::get('/bidang', [BidangTimController::class, 'index'])->name('bidang');
 Route::get('/bidang/create', [BidangTimController::class, 'create'])->name('bidang.create');
 Route::post('/bidang', [BidangTimController::class, 'store'])->name('bidang');
 Route::get('/bidang/delete/{id}', [BidangTimController::class, 'destroy'])->name('bidang.delete');
 Route::get('/bidang/edit/{id}', [BidangTimController::class, 'edit'])->name('bidang.edit');
 Route::put('/bidang/update/{id}', [BidangTimController::class, 'update'])->name('bidang.update');
+
+// tim
 Route::get('/tim', [TimController::class, 'index'])->name('tim');
 Route::get('/tim/create', [TimController::class, 'create'])->name('tim.create');
 Route::post('/tim', [TimController::class, 'store'])->name('tim');
 Route::get('/tim/delete/{id}/{id_user}', [TimController::class, 'destroy'])->name('tim.delete');
 Route::get('/tim/edit/{id}/{id_user}', [TimController::class, 'edit'])->name('tim.edit');
 Route::put('/tim/update/{id}/{id_user}', [TimController::class, 'update'])->name('tim.update');
+
+// profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/setting', [ProfileController::class, 'viewSetting'])->name('setting');
 Route::put('/setting/{id}/{id_user}', [ProfileController::class, 'SettingProfile'])->name('SettingProfile');
@@ -59,3 +69,11 @@ Route::post('/tentang', [KontenTentangController::class, 'store'])->name('tentan
 Route::get('/tentang/delete/{id}/{id_teks}', [KontenTentangController::class, 'destroy'])->name('tentang.delete');
 Route::get('/tentang/{id}/{id_teks}', [KontenTentangController::class, 'edit'])->name('tentang.edit');
 Route::put('/tentang/update/{id}/{id_teks}', [KontenTentangController::class, 'update'])->name('tentang.update');
+
+// tentang
+Route::get('/pelayanan', [KontenPelayananController::class, 'index'])->name('pelayanan');
+Route::get('/pelayanan/create', [KontenPelayananController::class, 'create'])->name('pelayanan.create');
+Route::post('/pelayanan', [KontenPelayananController::class, 'store'])->name('pelayanan');
+Route::get('/pelayanan/delete/{id}/{id_teks}', [KontenPelayananController::class, 'destroy'])->name('pelayanan.delete');
+Route::get('/pelayanan/{id}/{id_teks}', [KontenPelayananController::class, 'edit'])->name('pelayanan.edit');
+Route::put('/pelayanan/update/{id}/{id_teks}', [KontenPelayananController::class, 'update'])->name('pelayanan.update');

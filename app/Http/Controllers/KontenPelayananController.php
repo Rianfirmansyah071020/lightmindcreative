@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class KontenTentangController extends Controller
+class KontenPelayananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,37 +19,40 @@ class KontenTentangController extends Controller
         if (Session::get('id_user') == null) {
             return redirect('/login');
         } else {
-            Aktifitas::CreateAktifitas('akses konten tentang');
+            Aktifitas::CreateAktifitas('akses konten pelayanan');
         }
 
         $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
         $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
-        $dataTentang = DB::table('tb_tentang')->get();
+        $dataPelayanan = DB::table('tb_pelayanan')->get();
 
-        $data['tentang'] = [];
+        $data['pelayanan'] = [];
 
-        foreach ($dataTentang as $key => $value) {
-            $gambarTentang = DB::table('tb_gambar_tentang')->where('id_tentang', $value->id_tentang)->first();
+        foreach ($dataPelayanan as $key => $value) {
+            $cardPelayanan = DB::table('tb_card_pelayanan')->where('id_pelayanan', $value->id_pelayanan)->first();
             $idTim = DB::table('users')->where('id_user', $value->id_user)->value('id_tim');
             $tim = DB::table('tb_tim')->where('id_tim', $idTim)->first();
 
-            $data['tentang'][] = [
-                'id_tentang' => $value->id_tentang,
-                'id_gambar_tentang' => $gambarTentang->id_gambar_tentang,
+            $data['pelayanan'][] = [
+                'id_pelayanan' => $value->id_pelayanan,
+                'id_card_pelayanan' => $cardPelayanan->id_card_pelayanan,
                 'aktor' => $tim->nama_tim,
-                'judul_tentang' => $value->judul_tentang,
-                'deskripsi_judul_tentang' => $value->deskripsi_judul_tentang,
-                'deskripsi_tentang' => $value->deskripsi_tentang,
-                'file_gambar_tentang' => $gambarTentang->file_gambar_tentang,
-                'status_tentang' => $value->status_tentang,
+                'judul_pelayanan' => $value->judul_pelayanan,
+                'deskripsi_judul_pelayanan' => $value->deskripsi_judul_pelayanan,
+                'deskripsi_pelayanan' => $value->deskripsi_pelayanan,
+                'file_gambar_card_pelayanan' => $cardPelayanan->file_gambar_card_pelayanan,
+                'status_pelayanan' => $value->status_pelayanan,
+                'judul_card_pelayanan' => $cardPelayanan->judul_card_pelayanan,
+                'deskripsi_judul_card_pelayanan' => $cardPelayanan->deskripsi_judul_card_pelayanan,
+                'deskripsi_card_pelayanan' => $cardPelayanan->deskripsi_card_pelayanan,
             ];
         }
 
-        $data['gambarTentang'] = DB::table('tb_gambar_tentang')->get();
+        $data['cardPelayanan'] = DB::table('tb_card_pelayanan')->get();
 
 
-        return view('pages.dashboard.kontenTentang.index', $data);
+        return view('pages.dashboard.kontenPelayanan.index', $data);
     }
 
     /**
@@ -60,7 +63,7 @@ class KontenTentangController extends Controller
         if (Session::get('id_user') == null) {
             return redirect('/login');
         } else {
-            Aktifitas::CreateAktifitas('akses create konten tentang');
+            Aktifitas::CreateAktifitas('akses create konten pelayanan');
         }
 
         $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
@@ -77,11 +80,11 @@ class KontenTentangController extends Controller
     {
         $validasi = $request->validate(
             [
-                'judul_tentang' => 'required',
-                'deskripsi_judul_tentang' => 'required',
-                'deskripsi_tentang' => 'required',
-                'file_gambar_tentang' => 'required',
-                'status_tentang' => 'required',
+                'judul_pelayanan' => 'required',
+                'deskripsi_judul_pelayanan' => 'required',
+                'deskripsi_pelayanan' => 'required',
+                'file_gambar_pelayanan' => 'required',
+                'status_pelayanan' => 'required',
             ],
             [
                 'required' => ':attribute harus diisi',
@@ -92,27 +95,27 @@ class KontenTentangController extends Controller
         $idTentang = Tentang::GenerateID();
 
         $createTentang = Tentang::create([
-            'id_tentang' => $idTentang,
+            'id_pelayanan' => $idTentang,
             'id_user' => Session::get('id_user'),
-            'judul_tentang' => $validasi['judul_tentang'],
-            'deskripsi_judul_tentang' => $validasi['deskripsi_judul_tentang'],
-            'deskripsi_tentang' => $validasi['deskripsi_tentang'],
-            'status_tentang' => $validasi['status_tentang'],
+            'judul_pelayanan' => $validasi['judul_pelayanan'],
+            'deskripsi_judul_pelayanan' => $validasi['deskripsi_judul_pelayanan'],
+            'deskripsi_pelayanan' => $validasi['deskripsi_pelayanan'],
+            'status_pelayanan' => $validasi['status_pelayanan'],
         ]);
 
-        foreach ($request->file('file_gambar_tentang') as $key => $value) {
+        foreach ($request->file('file_gambar_pelayanan') as $key => $value) {
 
-            $file = $request->file('file_gambar_tentang')[$key];
+            $file = $request->file('file_gambar_pelayanan')[$key];
             $filename = $file->getClientOriginalName();
-            $file->move(public_path('images/tentang'), $filename);
+            $file->move(public_path('images/pelayanan'), $filename);
 
             $filename = 'images/tentang/' . $filename;
 
             $createGambarTentang = GambarTentang::create([
-                'id_gambar_tentang' => GambarTentang::GenerateID(),
+                'id_gambar_pelayanan' => GambarTentang::GenerateID(),
                 'id_user' => Session::get('id_user'),
-                'id_tentang' => $idTentang,
-                'file_gambar_tentang' => $filename,
+                'id_pelayanan' => $idTentang,
+                'file_gambar_pelayanan' => $filename,
             ]);
         }
 
@@ -150,16 +153,16 @@ class KontenTentangController extends Controller
         if (Session::get('id_user') == null) {
             return redirect('/login');
         } else {
-            Aktifitas::CreateAktifitas('edit konten tentang');
+            Aktifitas::CreateAktifitas('edit konten pelayanan');
         }
 
         $data['timById'] = DB::table('tb_tim')->where('id_tim', Session::get('id_tim'))->first();
         $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
 
-        $data['tentang'] = DB::table('tb_tentang')->where('id_tentang', $id)->first();
-        $data['gambar_tentang'] = DB::table('tb_gambar_tentang')->where('id_gambar_tentang', $id_gambar)->first();
-        $data['gambar_tentang_all'] = DB::table('tb_gambar_tentang')->where('id_tentang', $id)->get();
+        $data['pelayanan'] = DB::table('tb_pelayanan')->where('id_pelayanan', $id)->first();
+        $data['gambar_pelayanan'] = DB::table('tb_gambar_pelayanan')->where('id_gambar_pelayanan', $id_gambar)->first();
+        $data['gambar_tentang_all'] = DB::table('tb_gambar_pelayanan')->where('id_pelayanan', $id)->get();
 
         return view('pages.dashboard.kontenTentang.edit', $data);
     }
@@ -170,36 +173,36 @@ class KontenTentangController extends Controller
     public function update(Request $request, string $id)
     {
         $validasi = $request->validate([
-            'judul_tentang' => 'required',
-            'deskripsi_judul_tentang' => 'required',
-            'deskripsi_tentang' => 'required',
-            'status_tentang' => 'required',
+            'judul_pelayanan' => 'required',
+            'deskripsi_judul_pelayanan' => 'required',
+            'deskripsi_pelayanan' => 'required',
+            'status_pelayanan' => 'required',
         ]);
 
-        $updateTentang = Tentang::where('id_tentang', $id)->update([
+        $updateTentang = Tentang::where('id_pelayanan', $id)->update([
             'id_user' => Session::get('id_user'),
-            'judul_tentang' => $validasi['judul_tentang'],
-            'deskripsi_judul_tentang' => $validasi['deskripsi_judul_tentang'],
-            'deskripsi_tentang' => $validasi['deskripsi_tentang'],
-            'status_tentang' => $validasi['status_tentang'],
+            'judul_pelayanan' => $validasi['judul_pelayanan'],
+            'deskripsi_judul_pelayanan' => $validasi['deskripsi_judul_pelayanan'],
+            'deskripsi_pelayanan' => $validasi['deskripsi_pelayanan'],
+            'status_pelayanan' => $validasi['status_pelayanan'],
         ]);
 
         $updateGambarTentang = [];
 
-        if ($request->hasFile('file_gambar_tentang')) {
-            foreach ($request->file('file_gambar_tentang') as $key => $file) {
+        if ($request->hasFile('file_gambar_pelayanan')) {
+            foreach ($request->file('file_gambar_pelayanan') as $key => $file) {
                 // Generate a unique filename for each image
                 $filename = 'images/tentang/' . $file->getClientOriginalName();
 
                 // Move the file to the public path
-                $file->move(public_path('images/tentang'), $filename);
+                $file->move(public_path('images/pelayanan'), $filename);
 
                 // Update the database with the new file path
-                $updateGambarTentang[] = GambarTentang::where('id_gambar_tentang', $request->input('id_gambar_tentang')[$key])
-                    ->where('id_tentang', $id)
+                $updateGambarTentang[] = GambarTentang::where('id_gambar_pelayanan', $request->input('id_gambar_pelayanan')[$key])
+                    ->where('id_pelayanan', $id)
                     ->update([
                         'id_user' => Session::get('id_user'),
-                        'file_gambar_tentang' => $filename,
+                        'file_gambar_pelayanan' => $filename,
                     ]);
             }
         }
@@ -210,14 +213,14 @@ class KontenTentangController extends Controller
                 'title' => 'Berhasil!',
                 'text' => 'data konten tentang berhasil diupdate',
             ]);
-            return redirect()->route('tentang');
+            return redirect()->route('pelayanan');
         } else {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal!',
                 'text' => 'data konten tentang gagal diupdate',
             ]);
-            return redirect()->route('tentang');
+            return redirect()->route('pelayanan');
         }
     }
 
@@ -230,10 +233,10 @@ class KontenTentangController extends Controller
         if (Session::get('id_user') == null) {
             return redirect('/login');
         } else {
-            Aktifitas::CreateAktifitas('delete konten tentang');
+            Aktifitas::CreateAktifitas('delete konten pelayanan');
         }
 
-        if (DB::table('tb_tentang')->where('id_tentang', $id)->where('status_tentang', '1')->exists()) {
+        if (DB::table('tb_pelayanan')->where('id_pelayanan', $id)->where('status_pelayanan', '1')->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal!',
@@ -243,7 +246,7 @@ class KontenTentangController extends Controller
         }
 
 
-        if (DB::table('tb_tentang')->where('id_tentang', $id)->delete() && DB::table('tb_gambar_tentang')->where('id_gambar_tentang', $id_gambar)->delete()) {
+        if (DB::table('tb_pelayanan')->where('id_pelayanan', $id)->delete() && DB::table('tb_gambar_pelayanan')->where('id_gambar_pelayanan', $id_gambar)->delete()) {
             Session::flash('alert', [
                 'icon' => 'success',
                 'title' => 'Berhasil!',

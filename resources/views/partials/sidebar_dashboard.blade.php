@@ -51,6 +51,7 @@
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="{{ route('hero') }}">Konten Hero</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Konten Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('pelayanan') }}">Konten Pelayanan</a></li>
             </ul>
         </div>
     </li>

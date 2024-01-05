@@ -265,93 +265,100 @@ class TimController extends Controller
             Aktifitas::CreateAktifitas('hapus tim');
         }
 
-        $user = DB::table('users')->where('id_user', $id_user)->first();
+        if (DB::table('users')->where('id_user', $id_user)->where('status_user', 1)->exists()) {
+            Session::flash('alert', [
+                'icon' => 'error',
+                'title' => 'Gagal',
+                'text' => 'Anda tidak dapat menghapus data ini karena data ini aktif'
+            ]);
+            return redirect()->back();
+        }
 
-        if (DB::table('tb_bidang_tim')->where('id_user', $user->id_user)->exists()) {
+        if (DB::table('tb_bidang_tim')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('users')->where('kode_user', $user->id_user)->exists()) {
+        } else if (DB::table('users')->where('kode_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_Card_pelayanan')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_Card_pelayanan')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_card_proyek')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_card_proyek')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_gambar_hero')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_gambar_hero')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_gambar_tentang')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_gambar_tentang')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_kontak')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_kontak')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_pelayanan')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_pelayanan')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_proyek')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_proyek')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_sosial_media_tim')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_sosial_media_tim')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_teks_hero')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_teks_hero')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_tentang')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_tentang')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => 'Anda tidak dapat menghapus data ini karena data ini terhubung dengan data lain'
             ]);
             return redirect()->back();
-        } else if (DB::table('tb_tim')->where('id_user', $user->id_user)->exists()) {
+        } else if (DB::table('tb_tim')->where('id_user', $id_user)->exists()) {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal',
