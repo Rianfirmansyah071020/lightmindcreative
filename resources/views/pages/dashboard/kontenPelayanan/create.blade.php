@@ -1,15 +1,15 @@
 @extends('layouts.main_dashboard')
 
 @section('title')
-    Konten Tentang
+    Konten Pelayanan
 @endsection
 
 @section('breadcrumb')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tentang') }}">Konten Tentang</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tentang.create') }}">Create</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('pelayanan') }}">Konten Pelayanan</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('pelayanan.create') }}">Create</a></li>
         </ol>
     </nav>
 @endsection
@@ -17,64 +17,52 @@
 @section('content')
     <div class="row p-3">
         <div class="">
-            <a href="{{ route('tentang') }}" class="btn btn-primary btn-custom"><i class="fa-solid fa-arrow-left"></i>
+            <a href="{{ route('pelayanan') }}" class="btn btn-primary btn-custom"><i class="fa-solid fa-arrow-left"></i>
                 Kembali</a>
         </div>
     </div>
 
     <div class="row card p-4 mt-2">
-        <form action="{{ route('tentang') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('pelayanan') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group row">
                 <div class="col-lg-2">
-                    <label for="judul_tentang">Judul Tentang</label>
+                    <label for="judul_pelayanan">Judul Pelayanan</label>
                 </div>
                 <div class="col-lg-10">
-                    <input type="text" name="judul_tentang" id="judul_tentang"
-                        class="form-control @error('judul_tentang') is-invalid @enderror" value="{{ old('judul_tentang') }}"
-                        placeholder="judul" required>
-                    @error('judul_tentang')
+                    <input type="text" name="judul_pelayanan" id="judul_pelayanan"
+                        class="form-control @error('judul_pelayanan') is-invalid @enderror"
+                        value="{{ old('judul_pelayanan') }}" placeholder="judul" required>
+                    @error('judul_pelayanan')
                         <i class="text-danger">{{ $message }}</i>
                     @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-2">
-                    <label for="deskripsi_judul_tentang">Deskripsi Judul</label>
+                    <label for="deskripsi_judul_pelayanan">Deskripsi Judul</label>
                 </div>
                 <div class="col-lg-10">
-                    <textarea name="deskripsi_judul_tentang" id="deskripsi_judul_tentang" cols="30" rows="5"
-                        class="form-control @error('deskripsi_judul_tentang') is-invalid @enderror" placeholder="deskripsi" required>{{ old('deskripsi_judul_tentang') }}</textarea>
-                    @error('deskripsi_judul_tentang')
+                    <textarea name="deskripsi_judul_pelayanan" id="deskripsi_judul_pelayanan" cols="30" rows="5"
+                        class="form-control @error('deskripsi_judul_pelayanan') is-invalid @enderror" placeholder="deskripsi" required>{{ old('deskripsi_judul_pelayanan') }}</textarea>
+                    @error('deskripsi_judul_pelayanan')
                         <i class="text-danger">{{ $message }}</i>
                     @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-lg-2">
-                    <label for="deskripsi_tentang">Deskripsi Tentang</label>
+                    <label for="status_pelayanan">Status pelayanan</label>
                 </div>
                 <div class="col-lg-10">
-                    <textarea name="deskripsi_tentang" id="deskripsi_tentang" cols="30" rows="5"
-                        class="form-control @error('deskripsi_tentang') is-invalid @enderror" placeholder="deskripsi" required>{{ old('deskripsi_tentang') }}</textarea>
-                    @error('deskripsi_tentang')
-                        <i class="text-danger">{{ $message }}</i>
-                    @enderror
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-lg-2">
-                    <label for="status_tentang">Status tentang</label>
-                </div>
-                <div class="col-lg-10">
-                    <select name="status_tentang" id="status_tentang"
-                        class="form-control @error('status_tentang') is-invalid @enderror" required>
-                        <option value="1" {{ old('status_tentang') == '1' ? 'selected' : '' }}>Aktif
+                    <select name="status_pelayanan" id="status_pelayanan"
+                        class="form-control @error('status_pelayanan') is-invalid @enderror" required>
+                        <option value="1" {{ old('status_pelayanan') == '1' ? 'selected' : '' }}>Aktif
                         </option>
-                        <option value="0" {{ old('status_tentang') == '0' ? 'selected' : '' }}>Tidak
+                        <option value="0" {{ old('status_pelayanan') == '0' ? 'selected' : '' }}>Tidak
                         </option>
                     </select>
-                    @error('status_tentang')
+                    @error('status_pelayanan')
                         <i class="text-danger">{{ $message }}</i>
                     @enderror
                 </div>
@@ -83,15 +71,52 @@
             <div id="row-container" data-row="1">
                 <div class="form-group row">
                     <div class="col-lg-2">
-                        <label for="file_gambar_tentang_1">Gambar Tentang</label>
+                        <label for="file_gambar_card_pelayanan_1">Gambar Card Pelayanan</label>
                     </div>
                     <div class="col-lg-4">
-                        <input type="file" name="file_gambar_tentang[]" id="file_gambar_tentang_1"
+                        <input type="file" name="file_gambar_card_pelayanan[]" id="file_gambar_card_pelayanan_1"
                             class="form-control file-input" required>
                         <div class="mt-4">
                             <img class="gambar-preview" src="#" alt="Preview"
                                 style="display: none; max-width: 100%; max-height: 200px;">
                         </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2">
+                        <label for="judul_card_pelayanan">Judul Card Pelayanan</label>
+                    </div>
+                    <div class="col-lg-10">
+                        <input type="text" name="judul_card_pelayanan[]" id="judul_card_pelayanan"
+                            class="form-control @error('judul_card_pelayanan') is-invalid @enderror"
+                            value="{{ old('judul_card_pelayanan') }}" placeholder="judul" required>
+                        @error('judul_card_pelayanan')
+                            <i class="text-danger">{{ $message }}</i>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2">
+                        <label for="deskripsi_judul_card_pelayanan"> Deskripsi Judul Card Pelayanan</label>
+                    </div>
+                    <div class="col-lg-10">
+                        <textarea name="deskripsi_judul_card_pelayanan[]" id="deskripsi_judul_card_pelayanan" cols="30" rows="5"
+                            class="form-control @error('deskripsi_judul_card_pelayanan') is-invalid @enderror" placeholder="deskripsi" required>{{ old('deskripsi_judul_card_pelayanan') }}</textarea>
+                        @error('deskripsi_judul_card_pelayanan')
+                            <i class="text-danger">{{ $message }}</i>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2">
+                        <label for="deskripsi_card_pelayanan"> Deskripsi Card Pelayanan</label>
+                    </div>
+                    <div class="col-lg-10">
+                        <textarea name="deskripsi_card_pelayanan[]" id="deskripsi_card_pelayanan" cols="30" rows="5"
+                            class="form-control @error('deskripsi_card_pelayanan') is-invalid @enderror" placeholder="deskripsi" required>{{ old('deskripsi_card_pelayanan') }}</textarea>
+                        @error('deskripsi_card_pelayanan')
+                            <i class="text-danger">{{ $message }}</i>
+                        @enderror
                     </div>
                 </div>
 
@@ -109,49 +134,55 @@
 
     <script>
         $(document).ready(function() {
+            // Perintah tambah baris
             $("#addRow").click(function() {
-                var lastRow = $("#row-container .form-group.row:last");
-                var newRow = lastRow.clone();
-                var newRowNumber = parseInt(lastRow.find('input[type="file"]').attr("id").split("_")
-                    .pop()) + 1;
+                var rowCount = $("#row-container").data("row");
+                var newRow = $("#row-container").clone();
 
-                newRow.find('input[type="file"]').attr('id', 'file_gambar_tentang_' + newRowNumber);
-                newRow.find('.gambar-preview').attr('id', 'gambar_preview_' + newRowNumber).attr('src', '')
-                    .hide();
+                // Increment data-row attribute for the new row
+                newRow.attr("data-row", rowCount + 1);
 
-                newRow.find('input[type="file"]').val('');
-                newRow.find('.file-input').on('change', function() {
-                    readURL(this);
-                });
+                // Reset input values and remove error messages
+                newRow.find("input, textarea").val("");
+                newRow.find(".text-danger").text("");
 
-                newRow.find(".removeRow").on("click", function() {
-                    newRow.remove();
-                });
+                // Update file input id and name attributes
+                newRow.find("[id^=file_gambar_card_pelayanan_]").attr("id", "file_gambar_card_pelayanan_" +
+                    (rowCount + 1));
+                newRow.find("[name^=file_gambar_card_pelayanan]").attr("name",
+                    "file_gambar_card_pelayanan[]");
 
+                // Update gambar-preview src to display placeholder image
+                newRow.find(".gambar-preview").attr("src", "").hide();
+
+                // Append the new row
                 $("#row-container").append(newRow);
+
+                rowCount++;
+                $("#row-container").data("row", rowCount);
             });
 
-            function readURL(input) {
-                var rowContainer = $(input).closest(".form-group.row");
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        rowContainer.find('.gambar-preview').attr('src', e.target.result).show();
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
+            // Perintah hapus baris
+            $(document).on("click", ".removeRow", function() {
+                $(this).closest(".form-group.row").remove();
+            });
 
+            // Preview gambar saat memilih file
             $(document).on("change", ".file-input", function() {
-                readURL(this);
-            });
+                var input = this;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update gambar-preview src based on the selected file
+                    $(input).closest('.form-group.row').find(".gambar-preview").attr("src", e.target
+                        .result).show();
+                };
 
-            $(".removeRow").on("click", function() {
-                var rowContainer = $(this).closest(".form-group.row");
-                if ($("#row-container .form-group.row").length > 1) {
-                    rowContainer.remove();
+                // Check if a file is selected
+                if (input.files.length > 0) {
+                    reader.readAsDataURL(input.files[0]);
                 } else {
-                    alert("Minimal harus ada satu baris input.");
+                    // If no file is selected, hide the gambar-preview
+                    $(input).closest('.form-group.row').find(".gambar-preview").hide();
                 }
             });
         });

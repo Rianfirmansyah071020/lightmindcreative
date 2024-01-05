@@ -70,7 +70,7 @@ class KontenPelayananController extends Controller
         $data['akunById'] = DB::table('users')->where('id_user', Session::get('id_user'))->first();
 
 
-        return view('pages.dashboard.kontenTentang.create', $data);
+        return view('pages.dashboard.kontenPelayanan.create', $data);
     }
 
     /**
@@ -164,7 +164,7 @@ class KontenPelayananController extends Controller
         $data['gambar_pelayanan'] = DB::table('tb_gambar_pelayanan')->where('id_gambar_pelayanan', $id_gambar)->first();
         $data['gambar_tentang_all'] = DB::table('tb_gambar_pelayanan')->where('id_pelayanan', $id)->get();
 
-        return view('pages.dashboard.kontenTentang.edit', $data);
+        return view('pages.dashboard.kontenPelayanan.edit', $data);
     }
 
     /**
