@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aktifitas;
+use App\Models\CardPelayanan;
 use App\Models\GambarTentang;
+use App\Models\Pelayanan;
 use App\Models\Tentang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,17 +37,16 @@ class KontenPelayananController extends Controller
             $tim = DB::table('tb_tim')->where('id_tim', $idTim)->first();
 
             $data['pelayanan'][] = [
-                'id_pelayanan' => $value->id_pelayanan,
-                'id_card_pelayanan' => $cardPelayanan->id_card_pelayanan,
-                'aktor' => $tim->nama_tim,
-                'judul_pelayanan' => $value->judul_pelayanan,
-                'deskripsi_judul_pelayanan' => $value->deskripsi_judul_pelayanan,
-                'deskripsi_pelayanan' => $value->deskripsi_pelayanan,
-                'file_gambar_card_pelayanan' => $cardPelayanan->file_gambar_card_pelayanan,
-                'status_pelayanan' => $value->status_pelayanan,
-                'judul_card_pelayanan' => $cardPelayanan->judul_card_pelayanan,
-                'deskripsi_judul_card_pelayanan' => $cardPelayanan->deskripsi_judul_card_pelayanan,
-                'deskripsi_card_pelayanan' => $cardPelayanan->deskripsi_card_pelayanan,
+                'id_pelayanan' => $value->id_pelayanan ?? "",
+                'id_card_pelayanan' => $cardPelayanan->id_card_pelayanan ?? "",
+                'aktor' => $tim->nama_tim ?? "",
+                'judul_pelayanan' => $value->judul_pelayanan ?? "",
+                'deskripsi_judul_pelayanan' => $value->deskripsi_judul_pelayanan ?? "",
+                'file_gambar_card_pelayanan' => $cardPelayanan->file_gambar_card_pelayanan ?? "",
+                'status_pelayanan' => $value->status_pelayanan ?? "",
+                'judul_card_pelayanan' => $cardPelayanan->judul_card_pelayanan ?? "",
+                'deskripsi_judul_card_pelayanan' => $cardPelayanan->deskripsi_judul_card_pelayanan ?? "",
+                'deskripsi_card_pelayanan' => $cardPelayanan->deskripsi_card_pelayanan ?? "",
             ];
         }
 
@@ -78,60 +79,62 @@ class KontenPelayananController extends Controller
      */
     public function store(Request $request)
     {
+
         $validasi = $request->validate(
             [
                 'judul_pelayanan' => 'required',
                 'deskripsi_judul_pelayanan' => 'required',
-                'deskripsi_pelayanan' => 'required',
-                'file_gambar_pelayanan' => 'required',
                 'status_pelayanan' => 'required',
-            ],
-            [
-                'required' => ':attribute harus diisi',
+                'file_gambar_card_pelayanan' => 'required',
+                'judul_card_pelayanan' => 'required',
+                'deskripsi_judul_card_pelayanan' => 'required',
+                'deskripsi_card_pelayanan' => 'required',
 
             ]
         );
 
-        $idTentang = Tentang::GenerateID();
+        $idPelayanan = Pelayanan::GenerateID();
 
-        $createTentang = Tentang::create([
-            'id_pelayanan' => $idTentang,
+        $createPelayanan = Pelayanan::create([
+            'id_pelayanan' => $idPelayanan,
             'id_user' => Session::get('id_user'),
             'judul_pelayanan' => $validasi['judul_pelayanan'],
             'deskripsi_judul_pelayanan' => $validasi['deskripsi_judul_pelayanan'],
-            'deskripsi_pelayanan' => $validasi['deskripsi_pelayanan'],
             'status_pelayanan' => $validasi['status_pelayanan'],
         ]);
 
-        foreach ($request->file('file_gambar_pelayanan') as $key => $value) {
+        foreach ($request->file('file_gambar_card_pelayanan') as $key => $value) {
 
-            $file = $request->file('file_gambar_pelayanan')[$key];
+            $file = $request->file('file_gambar_card_pelayanan')[$key];
             $filename = $file->getClientOriginalName();
             $file->move(public_path('images/pelayanan'), $filename);
 
-            $filename = 'images/tentang/' . $filename;
+            $filename = 'images/pelayanan/' . $filename;
 
-            $createGambarTentang = GambarTentang::create([
-                'id_gambar_pelayanan' => GambarTentang::GenerateID(),
+            $createCardPelayanan = CardPelayanan::create([
+                'id_card_pelayanan' => CardPelayanan::GenerateID(),
                 'id_user' => Session::get('id_user'),
-                'id_pelayanan' => $idTentang,
-                'file_gambar_pelayanan' => $filename,
+                'id_pelayanan' => $idPelayanan,
+                'file_gambar_card_pelayanan' => $filename,
+                'judul_card_pelayanan' => $request->input('judul_card_pelayanan')[$key],
+                'deskripsi_judul_card_pelayanan' => $request->input('deskripsi_judul_card_pelayanan')[$key],
+                'deskripsi_card_pelayanan' => $request->input('deskripsi_card_pelayanan')[$key],
             ]);
         }
 
 
-        if ($createTentang && $createGambarTentang) {
+        if ($createPelayanan && $createCardPelayanan) {
             Session::flash('alert', [
                 'icon' => 'success',
                 'title' => 'Berhasil!',
-                'text' => 'data konten tentang berhasil ditambahkan',
+                'text' => 'data konten pelayanan berhasil ditambahkan',
             ]);
             return redirect()->back();
         } else {
             Session::flash('alert', [
                 'icon' => 'error',
                 'title' => 'Gagal!',
-                'text' => 'data konten tentang gagal ditambahkan',
+                'text' => 'data konten pelayanan gagal ditambahkan',
             ]);
             return redirect()->back();
         }

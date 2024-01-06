@@ -33,10 +33,10 @@ class BidangTimController extends Controller
             $tim = DB::table('tb_tim')->where('id_user', $value->id_user)->first();
 
             $data['bidang'][] = [
-                'id_bidang_tim' => $value->id_bidang_tim,
-                'aktor' => $tim->nama_tim,
-                'nama_bidang_tim' => $value->nama_bidang_tim,
-                'deskripsi_bidang_tim' => $value->deskripsi_bidang_tim,
+                'id_bidang_tim' => $value->id_bidang_tim ?? "",
+                'aktor' => $tim->nama_tim ?? "",
+                'nama_bidang_tim' => $value->nama_bidang_tim ?? "",
+                'deskripsi_bidang_tim' => $value->deskripsi_bidang_tim ?? "",
             ];
         }
 

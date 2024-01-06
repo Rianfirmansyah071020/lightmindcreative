@@ -29,7 +29,6 @@
                     <th class="text-center">Aktor</th>
                     <th class="text-center">Judul</th>
                     <th class="text-center">Deskripsi Judul</th>
-                    <th class="text-center">Deskripsi pelayanan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">___Opsi___</th>
                 </tr>
@@ -41,7 +40,6 @@
                         <td class="text-center">{{ $data['aktor'] }}</td>
                         <td class="text-center">{{ $data['judul_pelayanan'] }}</td>
                         <td class="text-center">{{ $data['deskripsi_judul_pelayanan'] }}</td>
-                        <td class="text-center">{{ $data['deskripsi_pelayanan'] }}</td>
                         <td class="text-center">
                             @if ($data['status_pelayanan'] == 1)
                                 <span class="badge badge-success">Aktif</span>
@@ -70,13 +68,13 @@
                                             <div class="col-lg-12">
                                                 <h2 class="text-center">{{ $data['judul_pelayanan'] }}</h2>
                                                 <p class="text-justify">{{ $data['deskripsi_judul_pelayanan'] }}</p>
-                                                <p class="text-justify">{{ $data['deskripsi_pelayanan'] }}</p>
+
                                             </div>
                                             <div class="row d-flex justify-content-between">
                                                 @foreach ($cardPelayanan as $item)
                                                     <div class="col-4">
                                                         @if ($item->id_pelayanan == $data['id_pelayanan'])
-                                                            <div class="card">
+                                                            <div class="card shadow">
                                                                 <img src="{{ $item->file_gambar_card_pelayanan }}"
                                                                     alt="{{ $item->judul_card_pelayanan }}"
                                                                     class="img-card-top" style="all: initial; width:100%;">

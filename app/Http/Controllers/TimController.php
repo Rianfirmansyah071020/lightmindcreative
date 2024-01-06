@@ -40,21 +40,21 @@ class TimController extends Controller
             $bidang = DB::table('tb_bidang_tim')->where('id_bidang_tim', $value->id_bidang_tim)->first();
 
             $data['tim'][] = [
-                'id_tim' => $value->id_tim,
-                'id_bidang_tim' => $value->id_bidang_tim,
+                'id_tim' => $value->id_tim ?? "",
+                'id_bidang_tim' => $value->id_bidang_tim ?? "",
                 'id_user' => $user->id_user,
-                'aktor' => $aktor->nama_tim,
-                'nama_tim' => $value->nama_tim,
-                'jenis_kelamin_tim' => $value->jenis_kelamin_tim,
-                'alamat_tim' => $value->alamat_tim,
-                'nomor_hp_tim' => $value->nomor_hp_tim,
-                'status_tim' => $value->status_tim,
-                'nama_bidang_tim' => $bidang->nama_bidang_tim,
-                'deskripsi_bidang_tim' => $bidang->deskripsi_bidang_tim,
-                'file_gambar_tim' => $value->file_gambar_tim,
-                'email' => $user->email,
-                'level_user' => $user->level_user,
-                'status_user' => $user->status_user,
+                'aktor' => $aktor->nama_tim ?? "",
+                'nama_tim' => $value->nama_tim ?? "",
+                'jenis_kelamin_tim' => $value->jenis_kelamin_tim ?? "",
+                'alamat_tim' => $value->alamat_tim ?? "",
+                'nomor_hp_tim' => $value->nomor_hp_tim ?? "",
+                'status_tim' => $value->status_tim ?? "",
+                'nama_bidang_tim' => $bidang->nama_bidang_tim ?? "",
+                'deskripsi_bidang_tim' => $bidang->deskripsi_bidang_tim ?? "",
+                'file_gambar_tim' => $value->file_gambar_tim ?? "",
+                'email' => $user->email ?? "",
+                'level_user' => $user->level_user ?? "",
+                'status_user' => $user->status_user ?? "",
             ];
         }
 

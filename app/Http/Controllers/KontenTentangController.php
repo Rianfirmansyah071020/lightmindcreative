@@ -35,14 +35,14 @@ class KontenTentangController extends Controller
             $tim = DB::table('tb_tim')->where('id_tim', $idTim)->first();
 
             $data['tentang'][] = [
-                'id_tentang' => $value->id_tentang,
-                'id_gambar_tentang' => $gambarTentang->id_gambar_tentang,
+                'id_tentang' => $value->id_tentang ?? "",
+                'id_gambar_tentang' => $gambarTentang->id_gambar_tentang ?? "",
                 'aktor' => $tim->nama_tim,
-                'judul_tentang' => $value->judul_tentang,
-                'deskripsi_judul_tentang' => $value->deskripsi_judul_tentang,
-                'deskripsi_tentang' => $value->deskripsi_tentang,
-                'file_gambar_tentang' => $gambarTentang->file_gambar_tentang,
-                'status_tentang' => $value->status_tentang,
+                'judul_tentang' => $value->judul_tentang ?? "",
+                'deskripsi_judul_tentang' => $value->deskripsi_judul_tentang ?? "",
+                'deskripsi_tentang' => $value->deskripsi_tentang ?? "",
+                'file_gambar_tentang' => $gambarTentang->file_gambar_tentang ?? "",
+                'status_tentang' => $value->status_tentang ?? "",
             ];
         }
 

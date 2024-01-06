@@ -34,13 +34,13 @@ class KontenHeroController extends Controller
             $tim = DB::table('tb_tim')->where('id_tim', $idTim)->first();
 
             $data['hero'][] = [
-                'id_gambar_hero' => $value->id_gambar_hero,
-                'id_teks_hero' => $textHero->id_teks_hero,
+                'id_gambar_hero' => $value->id_gambar_hero ?? "",
+                'id_teks_hero' => $textHero->id_teks_hero ?? "",
                 'aktor' => $tim->nama_tim,
-                'file_gambar_hero' => $value->file_gambar_hero,
-                'status_gambar_hero' => $value->status_gambar_hero,
-                'judul_teks_hero' => $textHero->judul_teks_hero,
-                'deskripsi_teks_hero' => $textHero->deskripsi_teks_hero
+                'file_gambar_hero' => $value->file_gambar_hero ?? "",
+                'status_gambar_hero' => $value->status_gambar_hero ?? "",
+                'judul_teks_hero' => $textHero->judul_teks_hero ?? "",
+                'deskripsi_teks_hero' => $textHero->deskripsi_teks_hero ?? ""
             ];
         }
 
