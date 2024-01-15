@@ -121,7 +121,8 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a href="javascript:void(0);" class="btn btn-danger removeRow">Hapus Baris</a>
+                    <!-- Tombol "Hapus Baris" hanya ditampilkan pada baris kedua dan seterusnya -->
+                    <a href="javascript:void(0);" class="btn btn-danger removeRow" style="display: none;">Hapus Baris</a>
                 </div>
             </div>
 
@@ -131,4 +132,58 @@
             </div>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi nomor baris
+            let rowNum = 1;
+
+            // Tambahkan baris input saat tombol "Tambah Baris" diklik
+            $("#addRow").on("click", function() {
+                rowNum++; // Tambahkan nomor baris
+                let newRow = $("#row-container").clone(); // Salin baris input yang ada
+                newRow.attr("data-row", rowNum); // Setel atribut data-row dengan nomor baris baru
+                newRow.find(":input").val(""); // Setel nilai input menjadi kosong
+                newRow.find(".gambar-preview").attr("src", "")
+                    .hide(); // Setel gambar preview menjadi kosong dan sembunyikan
+                newRow.find("input[type=file]").attr("id", "file_gambar_card_pelayanan_" +
+                    rowNum); // Ubah ID input file
+                newRow.find("input[type=text]").attr("id", "judul_card_pelayanan_" +
+                    rowNum); // Ubah ID input text
+                newRow.find("textarea").attr("id", "deskripsi_judul_card_pelayanan_" +
+                    rowNum); // Ubah ID textarea
+
+                // Tampilkan tombol "Hapus Baris" kecuali untuk baris pertama
+                if (rowNum > 1) {
+                    newRow.find(".removeRow").show();
+                } else {
+                    newRow.find(".removeRow").hide();
+                }
+
+                newRow.find(".removeRow").on("click", function() {
+                    removeRow(this); // Panggil fungsi untuk menghapus baris
+                });
+
+                // Masukkan baris baru sebelum tombol "Tambah Baris"
+                newRow.insertBefore($("#addRow").parent());
+
+            });
+
+            // Hapus baris saat tombol "Hapus Baris" pada baris tertentu diklik
+            $(".removeRow").on("click", function() {
+                removeRow(this); // Panggil fungsi untuk menghapus baris
+            });
+
+            // Fungsi untuk menghapus baris dengan penanganan jumlah minimum baris
+            function removeRow(button) {
+                let totalRows = $("#row-container").parent().children(".row").length; // Hitung total baris
+
+                if (totalRows > 1) {
+                    $(button).closest("#row-container").remove(); // Hapus baris jika lebih dari satu baris
+                } else {
+                    alert("Baris ini tidak dapat dihapus karena jumlah baris hanya satu.");
+                }
+            }
+        });
+    </script>
 @endsection

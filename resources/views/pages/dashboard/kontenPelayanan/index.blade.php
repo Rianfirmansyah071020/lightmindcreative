@@ -70,7 +70,7 @@
                                                 <p class="text-justify">{{ $data['deskripsi_judul_pelayanan'] }}</p>
 
                                             </div>
-                                            <div class="row d-flex justify-content-between">
+                                            <div class="row d-flex justify-content-center">
                                                 @foreach ($cardPelayanan as $item)
                                                     <div class="col-4">
                                                         @if ($item->id_pelayanan == $data['id_pelayanan'])
